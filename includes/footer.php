@@ -88,7 +88,7 @@ foreach($results as $row)
                          <div class="col-xl-10 col-lg-10 ">
                              <div class="footer-copy-right">
                                  <p>
- Smart Household Services<i class="fa fa-heart" aria-hidden="true"></i>
+ Grocery Store and Maid Service <i class="fa fa-heart" aria-hidden="true"></i>
  </p>
                              </div>
                          </div>

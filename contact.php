@@ -8,7 +8,7 @@ include('includes/dbconnection.php');
 <html class="no-js" lang="zxx">
 
 <head>
-    <title>Maid Hiring Management System || Contact Us</title>
+    <title>Grocery Store And Maid Service System || Contact Us</title>
 
     <!-- CSS here -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -186,7 +186,7 @@ include('includes/dbconnection.php');
 
     <!-- WhatsApp Chat Button -->
     <div class="whatsapp-chat fixed mb-5">
-        <a href="https://wa.me/8801758551245" target="_blank">
+        <a href="https://wa.me/8801790528911" target="_blank">
             <img class="img-fluid rounded-circle shadow width-100 " src="assets/img/logo/whatsapp-icon.png" alt="WhatsApp Chat">
         </a>
     </div>

@@ -82,7 +82,7 @@
   <div class="grid md:grid-cols-3 gap-8">
     <div class="bg-white shadow-xl rounded-xl p-6 text-center hover:scale-105 transition">
       <h4 class="text-xl font-bold mb-2">Maid Weekly</h4>
-      <p class="text-2xl font-bold text-green-600">1,499 BDT</p>
+      <p class="text-2xl font-bold text-green-600">999 BDT</p>
       <ul class="mt-4 text-gray-500">
         <li>3 cleaning visits/week</li>
         <li>Flexible schedule</li>
@@ -91,7 +91,7 @@
     </div>
     <div class="bg-white shadow-xl rounded-xl p-6 text-center hover:scale-105 transition">
       <h4 class="text-xl font-bold mb-2">Grocery Monthly</h4>
-      <p class="text-2xl font-bold text-green-600">4,799 BDT</p>
+      <p class="text-2xl font-bold text-green-600">2,799 BDT</p>
       <ul class="mt-4 text-gray-500">
         <li>Weekly grocery basket</li>
         <li>Free delivery</li>
@@ -100,7 +100,7 @@
     </div>
     <div class="bg-white shadow-xl rounded-xl p-6 text-center hover:scale-105 transition">
       <h4 class="text-xl font-bold mb-2">Full Combo Annual</h4>
-      <p class="text-2xl font-bold text-green-600">49,999 BDT</p>
+      <p class="text-2xl font-bold text-green-600">9,999 BDT</p>
       <ul class="mt-4 text-gray-500">
         <li>Weekly groceries + maid visits</li>
         <li>Best value plan</li>
