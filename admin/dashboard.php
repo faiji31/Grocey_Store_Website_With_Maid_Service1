@@ -74,7 +74,7 @@ if (strlen($_SESSION['mhmsaid'] == 0)) {
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <title>Maid Hiring Management System || Dashboard</title>
+      <title>Grocery Store and Maid Service Website || Dashboard</title>
       <link rel="stylesheet" href="css/bootstrap.min.css" />
       <link rel="stylesheet" href="style.css" />
       <link rel="stylesheet" href="css/responsive.css" />
@@ -432,9 +432,9 @@ new Chart(ctxDaily, {
     type: 'line',
     data: {
         labels: [
-            '2024-01-01', '2024-01-02', '2024-01-03', '2024-01-04', '2024-01-05',
-            '2024-01-06', '2024-01-07', '2024-01-08', '2024-01-09', '2024-01-10',
-            '2024-01-11', '2024-01-12', '2024-01-13', '2024-01-14', '2024-01-15'
+            '2025-08-01', '2025-08-02', '2025-08-03', '2025-08-04', '2025-08-05',
+            '2025-08-06', '2025-08-07', '2025-08-08', '2025-08-09', '2025-08-10',
+            '2025-08-11', '2025-08-12', '2025-08-13', '2025-08-14', '2025-08-15'
         ], // 15 days
         datasets: [{
             label: 'Daily Orders',

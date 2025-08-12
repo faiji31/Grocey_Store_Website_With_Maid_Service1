@@ -39,7 +39,7 @@ if (isset($_POST['login'])) {
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <title>Maid Hiring Management System || Login Page</title>
+      <title>Grocery Store and Maid Service Website || Login Page</title>
       <link rel="stylesheet" href="css/bootstrap.min.css" />
       <!-- site css -->
       <link rel="stylesheet" href="style.css" />
@@ -61,7 +61,7 @@ if (isset($_POST['login'])) {
                <div class="login_section">
                   <div class="logo_login">
                      <div class="center">
-                        <h3 style="color: white;">Maid Hiring Management System</h3>
+                        <h3 style="color: white;">Grocery Store Website and Maid Services</h3>
                      </div>
                   </div>
                   <div class="login_form">

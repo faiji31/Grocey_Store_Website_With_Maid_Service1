@@ -3,7 +3,7 @@
                      <div class="full">
                         <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
                         <div class="logo_section">
-                           <a href="dashboard.php"><h3 style="color: white;padding-top: 20px;padding-left: 10px;">Maid Hiring Management System</h3></a>
+                           <a href="dashboard.php"><h3 style="color: white;padding-top: 20px;padding-left: 10px;">Grocery Store and Maid Service Website</h3></a>
                         </div>
                         <div class="right_topbar">
                            <div class="icon_info">

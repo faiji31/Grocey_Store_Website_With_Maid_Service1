@@ -38,7 +38,7 @@ if (isset($_POST['login'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Maid Hiring Management System || Agent Login Page</title>
+    <title>Grocery Store and Maid Service Website || Agent Login Page</title>
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="style.css" />
