@@ -7,7 +7,7 @@
             <div class="logo_section">
                 <a href="dashboard.php?maidId=<?php echo urlencode($_GET['maidId']); ?>">
                     <h3 style="color: white; padding-top: 20px; padding-left: 10px;">
-                        Maid Hiring Management System
+                        Grocery Store and Maid Servicde Website
                     </h3>
                 </a>
             </div>

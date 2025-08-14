@@ -1,220 +1,117 @@
 <?php
 session_start();
 error_reporting(0);
-
 include('includes/dbconnection.php');
 ?>
 <!doctype html>
-<html class="no-js" lang="zxx">
+<html lang="en">
 
 <head>
+    <meta charset="utf-8">
     <title>Grocery Store And Maid Service System || Contact Us</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSS here -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/slicknav.css">
-    <link rel="stylesheet" href="assets/css/price_rangs.css">
-    <link rel="stylesheet" href="assets/css/animate.min.css">
-    <link rel="stylesheet" href="assets/css/magnific-popup.css">
-    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/css/themify-icons.css">
-    <link rel="stylesheet" href="assets/css/slick.css">
-    <link rel="stylesheet" href="assets/css/nice-select.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
-        .complain-box {
-            margin-top: 50px;
-            padding: 30px;
-            background: #f7f7f7;
-            border-radius: 8px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        /* WhatsApp Chat Custom Styling */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
         }
-
-        .complain-box h3 {
-            color: #333;
-            font-size: 22px;
-            margin-bottom: 20px;
-        }
-
-        .whatsapp-chat {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 999;
-        }
-
-        .whatsapp-chat a:hover i {
-            color: #1DA851; /* Slightly darker green for hover */
-            transform: scale(1.1); /* Slight zoom on hover */
-            transition: all 0.2s ease-in-out;
-    }
-
 
         .whatsapp-chat img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
+            animation: bounce 2s infinite;
         }
-
-        .whatsapp-chat {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 1000;
-    }
-
-    .whatsapp-chat img {
-        width: 100px; /* Increase size */
-        height: 100px; /* Maintain proportions */
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .whatsapp-chat img:hover {
-        transform: scale(1.2); /* Zoom effect */
-        box-shadow: 0 8px 16px rgba(0, 255, 0, 0.4); /* Green glow effect */
-    }
-
-    @keyframes bounce {
-        0%, 20%, 50%, 80%, 100% {
-            transform: translateY(0);
-        }
-        40% {
-            transform: translateY(-10px);
-        }
-        60% {
-            transform: translateY(-5px);
-        }
-    }
-
-    .whatsapp-chat img {
-        animation: bounce 2s infinite; /* Continuous bounce effect */
-    }
     </style>
 </head>
 
-<body>
+<body class="bg-gray-50 text-gray-800">
     <?php include_once('includes/header.php'); ?>
-    <!-- Hero Area Start-->
-    <div class="slider-area">
-        <div class="single-slider section-overly slider-height2 d-flex align-items-center" data-background="assets/img/hero/contact.jpg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="hero-cap text-center">
-                            <h2>Contact Us</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Hero Area End -->
 
-    <!-- Contact Section Start -->
-    <section class="contact-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <?php
-                    $sql = "SELECT * from tblpage where PageType='contactus'";
-                    $query = $dbh->prepare($sql);
-                    $query->execute();
-                    $results = $query->fetchAll(PDO::FETCH_OBJ);
-
-                    if ($query->rowCount() > 0) {
-                        foreach ($results as $row) { ?>
-
-                            <div class="media contact-info">
-                                <span class="contact-info__icon"><i class="ti-home"></i></span>
-                                <div class="media-body">
-                                    <h3>Address</h3>
-                                    <p><?php echo htmlentities($row->PageDescription); ?></p>
-                                </div>
-                            </div>
-                            <div class="media contact-info">
-                                <span class="contact-info__icon"><i class="ti-tablet"></i></span>
-                                <div class="media-body">
-                                    <h3>Contact Number</h3>
-                                    <p><?php echo htmlentities($row->MobileNumber); ?></p>
-                                </div>
-                            </div>
-                            <div class="media contact-info">
-                                <span class="contact-info__icon"><i class="ti-email"></i></span>
-                                <div class="media-body">
-                                    <h3>Email</h3>
-                                    <p><?php echo htmlentities($row->Email); ?></p>
-                                </div>
-                            </div>
-                        <?php }
-                    } ?>
-                </div>
-
-                <!-- Complain Box -->
-                <div class="col-lg-6">
-                    <div class="complain-box">
-                        <h3>Submit Your Complaint</h3>
-                        <form action="complain-process.php" method="post">
-                            <div class="form-group">
-                                <label for="name">Your Name</label>
-                                <input type="text" class="form-control" id="name" name="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Your Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="complaint">Your Complaint</label>
-                                <textarea class="form-control" id="complaint" name="complaint" rows="4" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100">Submit Complaint</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+    <!-- Hero Section -->
+    <section class="relative bg-cover bg-center h-64 flex items-center justify-center" style="background-image: url('assets/img/hero/contact.jpg');">
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+        <div class="relative z-10 text-center">
+            <h2 class="text-white text-4xl font-bold">Contact Us</h2>
         </div>
     </section>
-    <!-- Contact Section End -->
+
+    <!-- Contact Section -->
+    <section class="py-12">
+        <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8">
+
+            <!-- Contact Info -->
+            <div class="space-y-6">
+                <?php
+                $sql = "SELECT * from tblpage where PageType='contactus'";
+                $query = $dbh->prepare($sql);
+                $query->execute();
+                $results = $query->fetchAll(PDO::FETCH_OBJ);
+
+                if ($query->rowCount() > 0) {
+                    foreach ($results as $row) { ?>
+                        <div class="flex space-x-4 items-start bg-white p-6 rounded-lg shadow">
+                            <div class="text-2xl text-green-500"><i class="ti-home"></i></div>
+                            <div>
+                                <h3 class="font-semibold text-lg">Address</h3>
+                                <p class="text-gray-600"><?php echo htmlentities($row->PageDescription); ?></p>
+                            </div>
+                        </div>
+
+                        <div class="flex space-x-4 items-start bg-white p-6 rounded-lg shadow">
+                            <div class="text-2xl text-green-500"><i class="ti-tablet"></i></div>
+                            <div>
+                                <h3 class="font-semibold text-lg">Contact Number</h3>
+                                <p class="text-gray-600"><?php echo htmlentities($row->MobileNumber); ?></p>
+                            </div>
+                        </div>
+
+                        <div class="flex space-x-4 items-start bg-white p-6 rounded-lg shadow">
+                            <div class="text-2xl text-green-500"><i class="ti-email"></i></div>
+                            <div>
+                                <h3 class="font-semibold text-lg">Email</h3>
+                                <p class="text-gray-600"><?php echo htmlentities($row->Email); ?></p>
+                            </div>
+                        </div>
+                <?php }
+                } ?>
+            </div>
+
+            <!-- Complaint Form -->
+            <div class="bg-white p-8 rounded-lg shadow space-y-6">
+                <h3 class="text-2xl font-semibold text-gray-900">Submit Your Complaint</h3>
+                <form action="complain-process.php" method="post" class="space-y-4">
+                    <div>
+                        <label for="name" class="block mb-1 font-medium">Your Name</label>
+                        <input type="text" id="name" name="name" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                    <div>
+                        <label for="email" class="block mb-1 font-medium">Your Email</label>
+                        <input type="email" id="email" name="email" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                    <div>
+                        <label for="complaint" class="block mb-1 font-medium">Your Complaint</label>
+                        <textarea id="complaint" name="complaint" rows="4" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-green-500 text-white font-semibold py-2 rounded hover:bg-green-600 transition">Submit Complaint</button>
+                </form>
+            </div>
+
+        </div>
+    </section>
 
     <!-- WhatsApp Chat Button -->
-    <div class="whatsapp-chat fixed mb-5">
+    <div class="whatsapp-chat fixed bottom-5 right-5 z-50">
         <a href="https://wa.me/8801790528911" target="_blank">
-            <img class="img-fluid rounded-circle shadow width-100 " src="assets/img/logo/whatsapp-icon.png" alt="WhatsApp Chat">
+            <img src="assets/img/logo/whatsapp-icon.png" alt="WhatsApp Chat" class="w-24 h-24 rounded-full shadow-lg hover:scale-110 transition-transform">
         </a>
     </div>
 
-    <?php include_once('includes/footer.php'); ?>
-
-    <!-- JS here -->
-    <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
-    <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
-    <script src="./assets/js/popper.min.js"></script>
-    <script src="./assets/js/bootstrap.min.js"></script>
-    <script src="./assets/js/jquery.slicknav.min.js"></script>
-    <script src="./assets/js/owl.carousel.min.js"></script>
-    <script src="./assets/js/slick.min.js"></script>
-    <script src="./assets/js/price_rangs.js"></script>
-    <script src="./assets/js/wow.min.js"></script>
-    <script src="./assets/js/animated.headline.js"></script>
-    <script src="./assets/js/jquery.scrollUp.min.js"></script>
-    <script src="./assets/js/jquery.nice-select.min.js"></script>
-    <script src="./assets/js/jquery.sticky.js"></script>
-    <script src="./assets/js/jquery.magnific-popup.js"></script>
-    <script src="./assets/js/contact.js"></script>
-    <script src="./assets/js/jquery.form.js"></script>
-    <script src="./assets/js/jquery.validate.min.js"></script>
-    <script src="./assets/js/mail-script.js"></script>
-    <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
-    <script src="./assets/js/plugins.js"></script>
-    <script src="./assets/js/main.js"></script>
+   <?php include_once('includes/footer.php'); ?>
 </body>
 
 </html>

@@ -621,183 +621,172 @@ a:focus {
     - topbar 
 ==============*/
 
+/* ===== Modern Topbar ===== */
 .topbar {
     position: fixed;
     width: 100%;
-    padding-left: 280px;
-    z-index: 2;
-    background: #15283c;
+    padding: 0 20px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     top: 0;
-    transition: ease all 0.3s;
     left: 0;
+    background: rgba(21, 40, 60, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 999;
+    transition: all 0.3s ease;
 }
 
-#sidebar.active+#content .topbar {
+/* When Sidebar Collapsed */
+#sidebar.active + #content .topbar {
     padding-left: 90px;
 }
 
+/* Navbar Area */
 .topbar .navbar {
-    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
+/* Right Section */
 .right_topbar {
-    float: right;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Icon Buttons */
+.icon_info ul {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+    margin: 0;
     padding: 0;
 }
 
-.icon_info {
-    float: left;
-    width: 100%;
-}
-
-.icon_info ul {
-    float: left;
-    width: auto;
-    list-style: none;
-    margin: 0;
-}
-
 .icon_info ul li {
-    float: left;
-    width: 35px;
-    height: 35px;
-    border-radius: 100%;
-    text-align: center;
-    line-height: 35px;
     position: relative;
-    margin: 15px 0 0 5px;
-}
-
-.icon_info ul li .fa-question-circle {
-    font-size: 21px;
-    position: relative;
-    top: 1px;
 }
 
 .icon_info ul li a {
     color: #fff;
     font-size: 18px;
-    font-weight: normal;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.08);
+    transition: all 0.3s ease;
 }
 
-.icon_info ul li a img {
-    width: 35px;
+.icon_info ul li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
 }
 
-.icon_info ul.user_profile_dd li {
-    width: auto;
+/* Notification Badge */
+.icon_info span.badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #ff5722;
+    color: #fff;
+    font-size: 11px;
+    padding: 3px 6px;
+    border-radius: 50%;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
-.icon_info ul.user_profile_dd>li span {
-    font-size: 13px;
+/* User Profile Dropdown */
+.icon_info ul.user_profile_dd > li {
+    background: rgba(255, 87, 34, 0.9);
+    padding: 10px 15px;
+    border-radius: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.3s ease;
+}
+
+.icon_info ul.user_profile_dd > li:hover {
+    background: rgba(255, 87, 34, 1);
+}
+
+.icon_info ul.user_profile_dd li span {
+    font-size: 14px;
     font-weight: 500;
     color: #fff;
-    padding: 0 35px 0 10px;
 }
 
-.icon_info ul.user_profile_dd li>a::after {
-    color: #fff;
-    top: 13px;
-    right: 28px;
-    display: block;
-    position: absolute;
-    transform: translateY(-50%);
-    content: "\f107";
-    font-family: 'fontawesome';
-    border: none;
-    font-size: 18px;
-}
-
-.icon_info ul.user_profile_dd {
-    float: left;
-    margin: 0 0 0 25px;
-}
-
-.icon_info ul.user_profile_dd li a {
-    cursor: pointer;
-}
-
-.icon_info ul.user_profile_dd>li {
-    width: auto;
-    border-radius: 0;
-    background: #ff5722;
-    margin: 0;
-    padding: 12px 0 12px 20px;
-    height: auto;
-}
-
-.sidebar_toggle {
-    border: none;
-    padding: 14px 26px 14px;
-    font-size: 21px;
-    background: #ff5722;
-    margin-right: 0;
-    cursor: pointer;
-    float: left;
-}
-
-.icon_info span.badge {
-    font-size: 10px;
-    line-height: 16px;
-    padding: 2px 6px;
-    position: absolute;
-    right: -2px;
-    top: -7px;
-    background: #ff5722;
-    border-radius: 100%;
-    color: #fff;
-    font-weight: 600;
-    width: 19px;
-    height: 19px;
-}
-
-.icon_info ul.user_profile_dd li div a {
-    font-size: 15px;
-    color: #15283c;
-    padding: 4px 15px;
-    border-bottom: none;
-    line-height: normal;
-}
-
-.icon_info ul.user_profile_dd li div a span {
-    font-size: 13px;
-    color: #15283c;
-    font-weight: normal;
-    padding: 0;
-    transition: all .3s ease-in-out;
-    line-height: normal;
-}
-
-.icon_info ul.user_profile_dd li div a:hover,
-.icon_info ul.user_profile_dd li div a:focus {
-    background: #243147;
-    color: #fff;
-}
-
-.icon_info ul.user_profile_dd li div a:hover span,
-.icon_info ul.user_profile_dd li div a:focus span {
-    color: #fff;
-}
-
+/* Dropdown Menu */
 .user_profile_dd .dropdown-menu {
-    position: absolute;
-    top: 100%;
+    top: 110%;
     right: 0;
-    z-index: 1000;
-    float: left;
-    padding: 10px 6px;
-    margin: 0;
-    font-size: 15px;
-    color: #212529;
-    text-align: left;
-    list-style: none;
-    background-color: #fff;
-    background-clip: padding-box;
-    border-radius: 0;
-    width: 100%;
-    box-shadow: -1px 1px 4px -2px rgba(0, 0, 0, 0.2);
-    border: none;
+    min-width: 180px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    transform: translateY(10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
 }
+
+.user_profile_dd:hover .dropdown-menu {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.user_profile_dd .dropdown-menu a {
+    display: block;
+    padding: 10px 15px;
+    color: #15283c;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+.user_profile_dd .dropdown-menu a:hover {
+    background: #f5f7fa;
+}
+
+/* Sidebar Toggle Button */
+.sidebar_toggle {
+    background: #ff5722;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sidebar_toggle:hover {
+    background: #e64a19;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .topbar {
+        padding: 0 10px;
+    }
+    .icon_info ul li a {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+}
+
 
 
 /**-- sidebar --**/
@@ -1956,23 +1945,55 @@ button.main_bt {
 -------------------------------------------------------------------*/
 
 .footer {
-    min-height: 65px;
-    background: #fff;
-    margin-top: 30px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-    border-radius: 5px;
-    width: 100%;
+    background: linear-gradient(135deg, #ffffff, #f7f9fc);
+    padding: 30px 20px;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 -3px 25px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.footer:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 -6px 30px rgba(0, 0, 0, 0.12);
 }
 
 .footer p {
     margin: 0;
-    line-height: normal;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 300;
+    font-size: 15px;
+    font-weight: 400;
     color: #214162;
-    padding: 25px 15px;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease-in-out;
 }
+
+.footer p:hover {
+    color: #0077ff;
+}
+
+/* Footer Links */
+.footer a {
+    color: #0077ff;
+    text-decoration: none;
+    font-weight: 500;
+    margin: 0 8px;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: #ff6600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footer {
+        padding: 20px 10px;
+    }
+    .footer p {
+        font-size: 13px;
+    }
+}
+
 
 
 /*------------------------------------------------------------------
