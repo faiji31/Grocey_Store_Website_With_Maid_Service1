@@ -16,7 +16,6 @@ include('includes/dbconnection.php');
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
-        /* WhatsApp Chat Custom Styling */
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
             40% { transform: translateY(-10px); }
@@ -55,7 +54,11 @@ include('includes/dbconnection.php');
                 if ($query->rowCount() > 0) {
                     foreach ($results as $row) { ?>
                         <div class="flex space-x-4 items-start bg-white p-6 rounded-lg shadow">
-                            <div class="text-2xl text-green-500"><i class="ti-home"></i></div>
+                            <!-- SVG Icon for Address -->
+                            <svg class="w-8 h-8 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                                <circle cx="12" cy="9" r="2" stroke="none" fill="currentColor"/>
+                            </svg>
                             <div>
                                 <h3 class="font-semibold text-lg">Address</h3>
                                 <p class="text-gray-600"><?php echo htmlentities($row->PageDescription); ?></p>
@@ -63,7 +66,11 @@ include('includes/dbconnection.php');
                         </div>
 
                         <div class="flex space-x-4 items-start bg-white p-6 rounded-lg shadow">
-                            <div class="text-2xl text-green-500"><i class="ti-tablet"></i></div>
+                            <!-- SVG Icon for Phone -->
+                            <svg class="w-8 h-8 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5h2l3 7-3 7H3l3-7-3-7z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M7 5h10M7 19h10M10 9h4"/>
+                            </svg>
                             <div>
                                 <h3 class="font-semibold text-lg">Contact Number</h3>
                                 <p class="text-gray-600"><?php echo htmlentities($row->MobileNumber); ?></p>
@@ -71,7 +78,10 @@ include('includes/dbconnection.php');
                         </div>
 
                         <div class="flex space-x-4 items-start bg-white p-6 rounded-lg shadow">
-                            <div class="text-2xl text-green-500"><i class="ti-email"></i></div>
+                            <!-- SVG Icon for Email -->
+                            <svg class="w-8 h-8 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16 12l-4 4-4-4m0 0l4-4 4 4M4 4h16v16H4V4z"/>
+                            </svg>
                             <div>
                                 <h3 class="font-semibold text-lg">Email</h3>
                                 <p class="text-gray-600"><?php echo htmlentities($row->Email); ?></p>

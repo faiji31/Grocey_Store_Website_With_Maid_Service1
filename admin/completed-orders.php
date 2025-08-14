@@ -11,136 +11,99 @@ if (strlen($_SESSION['mhmsaid'] == 0)) {
 <html lang="en">
 <head>
     <title>Completed Orders</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="dashboard dashboard_1">
-<div class="full_container">
-    <div class="inner_container">
-        <?php include_once('includes/sidebar.php'); ?>
-        <div id="content">
-            <?php include_once('includes/header.php'); ?>
-            <div class="midde_cont">
-                <div class="container-fluid">
-                    <div class="row column_title">
-                        <div class="col-md-12">
-                            <div class="page_title">
-                                <h2>Completed Orders</h2>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Completed Orders from tblgrocerybooking -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="white_shd full margin_bottom_30">
-                                <div class="full graph_head">
-                                    <div class="heading1 margin_0">
-                                        <h2>Grocery Orders</h2>
-                                    </div>
-                                </div>
-                                <div class="table_section padding_infor_info">
-                                    <div class="table-responsive-sm">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Order ID</th>
-                                                    <th>Customer Name</th>
-                                                    <th>Phone Number</th>
-                                                    <th>Delivery Address</th>
-                                                    <th>Order Details</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                $sqlGrocery = "SELECT * FROM tblgrocerybooking WHERE Status = 'Completed'";
-                                                $queryGrocery = $dbh->prepare($sqlGrocery);
-                                                $queryGrocery->execute();
-                                                $groceryResults = $queryGrocery->fetchAll(PDO::FETCH_OBJ);
-
-                                                if ($queryGrocery->rowCount() > 0) {
-                                                    foreach ($groceryResults as $row) {
-                                                ?>
-                                                <tr>
-                                                    <td><?php echo htmlentities($row->ID); ?></td>
-                                                    <td><?php echo htmlentities($row->UserName); ?></td>
-                                                    <td><?php echo htmlentities($row->PhoneNumber); ?></td>
-                                                    <td><?php echo htmlentities($row->FullArea); ?></td>
-                                                    <td><?php echo htmlentities($row->OrderDetails); ?></td>
-                                                    <td><?php echo htmlentities($row->Status); ?></td>
-                                                </tr>
-                                                <?php }
-                                                } else {
-                                                    echo '<tr><td colspan="6">No Completed Grocery Orders Found</td></tr>';
-                                                } ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Completed Orders from tblmaidbooking -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="white_shd full margin_bottom_30">
-                                <div class="full graph_head">
-                                    <div class="heading1 margin_0">
-                                        <h2>Maid Bookings</h2>
-                                    </div>
-                                </div>
-                                <div class="table_section padding_infor_info">
-                                    <div class="table-responsive-sm">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Booking ID</th>
-                                                    <th>Name</th>
-                                                    <th>Mobile Number</th>
-                                                    <th>Email</th>
-                                                    <th>Address</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                $sqlMaid = "SELECT * FROM tblmaidbooking WHERE Status = 'Completed'";
-                                                $queryMaid = $dbh->prepare($sqlMaid);
-                                                $queryMaid->execute();
-                                                $maidResults = $queryMaid->fetchAll(PDO::FETCH_OBJ);
-
-                                                if ($queryMaid->rowCount() > 0) {
-                                                    foreach ($maidResults as $row) {
-                                                ?>
-                                                <tr class="text-success">
-                                                    <td><b><?php echo htmlentities($row->BookingID); ?></b></td>
-                                                    <td><b><?php echo htmlentities($row->Name); ?></b></td>
-                                                    <td><b><?php echo htmlentities($row->ContactNumber); ?></b></td>
-                                                    <td><b><?php echo htmlentities($row->Email); ?></b></td>
-                                                    <td><b><?php echo htmlentities($row->Address); ?></b></td>
-                                                    <td><b><?php echo htmlentities($row->Status); ?></b></td>
-                                                </tr>
-                                                <?php }
-                                                } else {
-                                                    echo '<tr><td colspan="6">No Completed Maid Bookings Found</td></tr>';
-                                                } ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<div class="flex min-h-screen bg-gray-100">
+    <?php include_once('includes/sidebar.php'); ?>
+    <div class="flex-1 flex flex-col">
+        <?php include_once('includes/header.php'); ?>
+        <main class="flex-1 p-6 md:p-10">
+            <h2 class="text-3xl font-bold text-green-700 mb-8">Completed Orders</h2>
+            <div class="mb-10">
+                <div class="bg-white rounded-xl shadow p-6 mb-8">
+                    <h3 class="text-xl font-semibold text-green-700 mb-4">Grocery Orders</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-green-600">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-xs font-bold text-white uppercase tracking-wider">Order ID</th>
+                                    <th class="px-4 py-2 text-left text-xs font-bold text-white uppercase tracking-wider">Customer Name</th>
+                                    <th class="px-4 py-2 text-left text-xs font-bold text-white uppercase tracking-wider">Phone Number</th>
+                                    <th class="px-4 py-2 text-left text-xs font-bold text-white uppercase tracking-wider">Delivery Address</th>
+                                    <th class="px-4 py-2 text-left text-xs font-bold text-white uppercase tracking-wider">Order Details</th>
+                                    <th class="px-4 py-2 text-left text-xs font-bold text-white uppercase tracking-wider">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <?php
+                                $sqlGrocery = "SELECT * FROM tblgrocerybooking WHERE Status = 'Completed'";
+                                $queryGrocery = $dbh->prepare($sqlGrocery);
+                                $queryGrocery->execute();
+                                $groceryResults = $queryGrocery->fetchAll(PDO::FETCH_OBJ);
+                                if ($queryGrocery->rowCount() > 0) {
+                                    foreach ($groceryResults as $row) {
+                                ?>
+                                <tr>
+                                    <td class="px-4 py-2 text-sm text-gray-900"><?php echo htmlentities($row->ID); ?></td>
+                                    <td class="px-4 py-2 text-sm text-gray-900"><?php echo htmlentities($row->UserName); ?></td>
+                                    <td class="px-4 py-2 text-sm text-gray-900"><?php echo htmlentities($row->PhoneNumber); ?></td>
+                                    <td class="px-4 py-2 text-sm text-gray-900"><?php echo htmlentities($row->FullArea); ?></td>
+                                    <td class="px-4 py-2 text-sm text-gray-900"><?php echo htmlentities($row->OrderDetails); ?></td>
+                                    <td class="px-4 py-2 text-sm text-gray-900"><?php echo htmlentities($row->Status); ?></td>
+                                </tr>
+                                <?php }
+                                } else {
+                                    echo '<tr><td colspan="6" class="text-center py-4 text-gray-500">No Completed Grocery Orders Found</td></tr>';
+                                } ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <?php include_once('includes/footer.php'); ?>
+                <div class="bg-white rounded-xl shadow p-6">
+                    <h3 class="text-xl font-semibold text-green-700 mb-4">Maid Bookings</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-green-600">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-xs font-bold text-white uppercase tracking-wider">Booking ID</th>
+                                    <th class="px-4 py-2 text-left text-xs font-bold text-white uppercase tracking-wider">Name</th>
+                                    <th class="px-4 py-2 text-left text-xs font-bold text-white uppercase tracking-wider">Mobile Number</th>
+                                    <th class="px-4 py-2 text-left text-xs font-bold text-white uppercase tracking-wider">Email</th>
+                                    <th class="px-4 py-2 text-left text-xs font-bold text-white uppercase tracking-wider">Address</th>
+                                    <th class="px-4 py-2 text-left text-xs font-bold text-white uppercase tracking-wider">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <?php
+                                $sqlMaid = "SELECT * FROM tblmaidbooking WHERE Status = 'Completed'";
+                                $queryMaid = $dbh->prepare($sqlMaid);
+                                $queryMaid->execute();
+                                $maidResults = $queryMaid->fetchAll(PDO::FETCH_OBJ);
+                                if ($queryMaid->rowCount() > 0) {
+                                    foreach ($maidResults as $row) {
+                                ?>
+                                <tr class="text-green-700 font-semibold">
+                                    <td class="px-4 py-2 text-sm"><?php echo htmlentities($row->BookingID); ?></td>
+                                    <td class="px-4 py-2 text-sm"><?php echo htmlentities($row->Name); ?></td>
+                                    <td class="px-4 py-2 text-sm"><?php echo htmlentities($row->ContactNumber); ?></td>
+                                    <td class="px-4 py-2 text-sm"><?php echo htmlentities($row->Email); ?></td>
+                                    <td class="px-4 py-2 text-sm"><?php echo htmlentities($row->Address); ?></td>
+                                    <td class="px-4 py-2 text-sm"><?php echo htmlentities($row->Status); ?></td>
+                                </tr>
+                                <?php }
+                                } else {
+                                    echo '<tr><td colspan="6" class="text-center py-4 text-gray-500">No Completed Maid Bookings Found</td></tr>';
+                                } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-        </div>
+        </main>
+        <?php include_once('includes/footer.php'); ?>
     </div>
 </div>
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
 <?php } ?>

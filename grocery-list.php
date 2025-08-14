@@ -63,156 +63,120 @@ $areaName = isset($_GET['area']) ? htmlspecialchars($_GET['area']) : '';
 ?>
 
 <!doctype html>
-<html class="no-js" lang="zxx">
+<html lang="en">
 <head>
-<title>Maid Hiring Management System || Home Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery List | GroceryShop</title>
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
-    
-    <!-- External Stylesheets -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="assets/css/style.css">
-
-    <!-- External Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        .grocery-page {
-            display: flex;
-            flex-direction: row;
-            gap: 20px;
-        }
-        .grocery-list {
-            width: 65%;
-            padding: 20px;
-            background: #f9f9f9;
-            border-radius: 8px;
-        }
-        .order-form {
-            width: 35%;
-            padding: 20px;
-            background: #e9ecef;
-            border-radius: 8px;
-        }
-        .single-product {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 20px;
-            background: #fff;
-        }
-        .single-product img {
-            max-height: 150px;
-            margin-bottom: 10px;
-        }
-        .order-summary {
-            position: fixed;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-            border-radius: 8px;
-            padding: 15px;
-            width: 80%;
-            max-width: 600px;
-            display: none;
-        }
-    </style>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800 min-h-screen">
 <?php include_once('includes/header.php'); ?>
 <main>
-    <div class="container">
-        <!-- Display Order Summary -->
-        <?php if (isset($_SESSION['success']) && isset($_SESSION['order_summary'])): ?>
-            <div class="order-summary" id="order-summary">
-                <h4 class="text-center">Order Summary</h4>
-                <p><strong>Name:</strong> <?= htmlspecialchars($_SESSION['order_summary']['UserName']) ?></p>
-                <p><strong>Phone Number:</strong> <?= htmlspecialchars($_SESSION['order_summary']['PhoneNumber']) ?></p>
-                <p><strong>Delivery Address:</strong> <?= htmlspecialchars($_SESSION['order_summary']['FullArea']) ?></p>
-                <p><strong>Area Name:</strong> <?= htmlspecialchars($_SESSION['order_summary']['AreaName']) ?></p>
-                <p><strong>Preferred Delivery Time:</strong> <?= htmlspecialchars($_SESSION['order_summary']['DeliveryTime']) ?></p>
-                <p><strong>Order Details:</strong> <?= nl2br(htmlspecialchars($_SESSION['order_summary']['OrderDetails'])) ?></p>
-            </div>
-            <?php unset($_SESSION['success'], $_SESSION['order_summary']); ?>
-        <?php endif; ?>
+    <!-- Hero Section -->
+    <section class="relative h-56 md:h-72 flex items-center justify-center bg-cover bg-center mb-8" style="background-image: url('assets/img/hero/grocery.jpg');">
+        <div class="absolute inset-0 bg-gradient-to-r from-green-800/80 to-green-400/60"></div>
+        <div class="relative z-10 text-center px-4">
+            <h1 class="text-white text-4xl md:text-5xl font-extrabold drop-shadow mb-2 flex items-center justify-center gap-2">
+                <svg class="w-10 h-10 inline-block text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+                Grocery List
+            </h1>
+            <p class="text-white text-lg md:text-xl font-medium drop-shadow">Browse and order fresh groceries delivered to your doorstep</p>
+        </div>
+    </section>
 
-        <div class="grocery-page">
-            <!-- Grocery Items -->
-            <div class="grocery-list">
-                <h2 class="text-center" style="color: green;">Available Grocery Items</h2>
-                <div class="row">
-                    <?php
-                    $sql = "SELECT * FROM tblgrocery";
-                    $query = $dbh->prepare($sql);
-                    $query->execute();
-                    $results = $query->fetchAll(PDO::FETCH_OBJ);
-
-                    if ($query->rowCount() > 0):
-                        foreach ($results as $row): ?>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="single-product">
-                                    <img src="<?= htmlspecialchars($row->ImagePath) ?>" alt="<?= htmlspecialchars($row->ProductName) ?>" class="img-fluid">
-                                    <div class="product-details">
-                                        <h4><?= htmlspecialchars($row->ProductName) ?></h4>
-                                        <p><?= htmlspecialchars($row->Description) ?></p>
-                                        <p><strong>Price: <?= htmlspecialchars($row->Price) ?> BDT </strong></p>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <div class="col-12 text-center">
-                            <p>No grocery items available.</p>
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Grocery Items -->
+        <div class="md:col-span-2">
+            <h2 class="text-3xl font-bold text-green-700 mb-6 text-center">Available Grocery Items</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <?php
+                $sql = "SELECT * FROM tblgrocery";
+                $query = $dbh->prepare($sql);
+                $query->execute();
+                $results = $query->fetchAll(PDO::FETCH_OBJ);
+                if ($query->rowCount() > 0):
+                    foreach ($results as $row): ?>
+                        <div class="bg-white rounded-xl shadow hover:shadow-lg transition p-4 flex flex-col items-center">
+                            <img src="<?= htmlspecialchars($row->ImagePath) ?>" alt="<?= htmlspecialchars($row->ProductName) ?>" class="w-32 h-32 object-cover rounded mb-3 border border-green-100">
+                            <h4 class="font-bold text-lg text-green-700 mb-1"><?= htmlspecialchars($row->ProductName) ?></h4>
+                            <p class="text-gray-500 text-sm mb-2 text-center"><?= htmlspecialchars($row->Description) ?></p>
+                            <span class="font-semibold text-green-600">Price: <?= htmlspecialchars($row->Price) ?> BDT</span>
                         </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-
-            <!-- Grocery Order Form -->
-            <div class="order-form">
-                <h2 class="text-center" style="color: blue;">Place Your Order</h2>
-                <form method="POST" action="" id="orderForm">
-                    <div class="mb-3">
-                        <label for="UserName" class="form-label">Your Name:</label>
-                        <input type="text" class="form-control" id="UserName" name="UserName" placeholder="Enter your full name" required>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="col-span-3 text-center">
+                        <p>No grocery items available.</p>
                     </div>
-                    <div class="mb-3">
-                        <label for="PhoneNumber" class="form-label">Phone Number:</label>
-                        <input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber" placeholder="Enter your phone number" required pattern="[0-9]{11}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="FullArea" class="form-label">Delivery Address:</label>
-                        <textarea class="form-control" id="FullArea" name="FullArea" rows="3" required placeholder="Enter your full delivery address"></textarea>
-                    </div>
-                    <div class="mb-3">
-    <label for="AreaName" class="form-label">Area Name:</label>
-    <select class="form-control" id="AreaName" name="AreaName" required>
-        <option value="">-- Select Area --</option>
-        <option value="Basundhara R/A" <?php echo ($areaName == "Basundhara R/A") ? 'selected' : ''; ?>>Basundhara R/A</option>
-        <option value="Banani" <?php echo ($areaName == "Banani") ? 'selected' : ''; ?> disabled>Banani</option>
-        <option value="Gulshan" <?php echo ($areaName == "Gulshan") ? 'selected' : ''; ?>>Gulshan</option>
-        <option value="Badda" <?php echo ($areaName == "Badda") ? 'selected' : ''; ?> disabled>Badda</option>
-        <option value="Uttara" <?php echo ($areaName == "Uttara") ? 'selected' : ''; ?>>Uttara</option>
-    </select>
-</div>
-
-                    <div class="mb-3">
-                        <label for="DeliveryTime" class="form-label">Preferred Delivery Time:</label>
-                        <input type="time" class="form-control" id="DeliveryTime" name="DeliveryTime" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="OrderDetails" class="form-label">Order Details:</label>
-                        <textarea class="form-control" id="OrderDetails" name="OrderDetails" rows="4" placeholder="Rice - 1kg, Sugar - 1kg, Milk - 1L" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-success w-100">Place Order</button>
-                </form>
+                <?php endif; ?>
             </div>
         </div>
+
+        <!-- Grocery Order Form -->
+        <div class="bg-white rounded-2xl shadow-2xl border border-green-100 p-6 h-fit">
+            <h2 class="text-2xl font-bold text-blue-700 mb-2 text-center">Place Your Order</h2>
+            <form method="POST" action="" id="orderForm" class="space-y-4">
+                <div>
+                    <label for="UserName" class="block text-green-700 font-semibold mb-1">Your Name:</label>
+                    <input type="text" id="UserName" name="UserName" placeholder="Enter your full name" required
+                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition shadow-sm">
+                </div>
+                <div>
+                    <label for="PhoneNumber" class="block text-green-700 font-semibold mb-1">Phone Number:</label>
+                    <input type="text" id="PhoneNumber" name="PhoneNumber" placeholder="Enter your phone number" required pattern="[0-9]{11}"
+                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition shadow-sm">
+                </div>
+                <div>
+                    <label for="FullArea" class="block text-green-700 font-semibold mb-1">Delivery Address:</label>
+                    <textarea id="FullArea" name="FullArea" rows="3" required placeholder="Enter your full delivery address"
+                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition shadow-sm"></textarea>
+                </div>
+                <div>
+                    <label for="AreaName" class="block text-green-700 font-semibold mb-1">Area Name:</label>
+                    <select id="AreaName" name="AreaName" required
+                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition shadow-sm">
+                        <option value="">-- Select Area --</option>
+                        <option value="Basundhara R/A" <?php echo ($areaName == "Basundhara R/A") ? 'selected' : ''; ?>>Basundhara R/A</option>
+                        <option value="Banani" <?php echo ($areaName == "Banani") ? 'selected' : ''; ?> disabled>Banani</option>
+                        <option value="Gulshan" <?php echo ($areaName == "Gulshan") ? 'selected' : ''; ?>>Gulshan</option>
+                        <option value="Badda" <?php echo ($areaName == "Badda") ? 'selected' : ''; ?> disabled>Badda</option>
+                        <option value="Uttara" <?php echo ($areaName == "Uttara") ? 'selected' : ''; ?>>Uttara</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="DeliveryTime" class="block text-green-700 font-semibold mb-1">Preferred Delivery Time:</label>
+                    <input type="time" id="DeliveryTime" name="DeliveryTime" required
+                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition shadow-sm">
+                </div>
+                <div>
+                    <label for="OrderDetails" class="block text-green-700 font-semibold mb-1">Order Details:</label>
+                    <textarea id="OrderDetails" name="OrderDetails" rows="4" placeholder="Rice - 1kg, Sugar - 1kg, Milk - 1L" required
+                        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition shadow-sm"></textarea>
+                </div>
+                <button type="submit"
+                    class="w-full bg-gradient-to-r from-green-500 to-green-700 text-white font-bold px-8 py-3 rounded-full shadow-lg hover:from-green-600 hover:to-green-800 transition text-lg flex items-center gap-2 justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+                    Place Order
+                </button>
+            </form>
+        </div>
     </div>
+
+    <!-- Order Summary -->
+    <?php if (isset($_SESSION['success']) && isset($_SESSION['order_summary'])): ?>
+        <div class="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-green-100 border border-green-300 text-green-800 rounded-xl shadow-lg px-8 py-6 w-full max-w-lg animate-fade-in">
+            <h4 class="text-xl font-bold mb-2 text-center">Order Summary</h4>
+            <p><span class="font-semibold">Name:</span> <?= htmlspecialchars($_SESSION['order_summary']['UserName']) ?></p>
+            <p><span class="font-semibold">Phone Number:</span> <?= htmlspecialchars($_SESSION['order_summary']['PhoneNumber']) ?></p>
+            <p><span class="font-semibold">Delivery Address:</span> <?= htmlspecialchars($_SESSION['order_summary']['FullArea']) ?></p>
+            <p><span class="font-semibold">Area Name:</span> <?= htmlspecialchars($_SESSION['order_summary']['AreaName']) ?></p>
+            <p><span class="font-semibold">Preferred Delivery Time:</span> <?= htmlspecialchars($_SESSION['order_summary']['DeliveryTime']) ?></p>
+            <p><span class="font-semibold">Order Details:</span> <?= nl2br(htmlspecialchars($_SESSION['order_summary']['OrderDetails'])) ?></p>
+        </div>
+        <?php unset($_SESSION['success'], $_SESSION['order_summary']); ?>
+    <?php endif; ?>
 </main>
 <?php include_once('includes/footer.php'); ?>
 
@@ -223,16 +187,10 @@ $areaName = isset($_GET['area']) ? htmlspecialchars($_GET['area']) : '';
             e.preventDefault();
             const areaName = document.getElementById('AreaName').value;
             window.location.href = `login.php?area=${encodeURIComponent(areaName)}`;
-        }
-
-        else{
+        } else {
             alert('Order placed successfully!');
         }
     });
 </script>
-
-<script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
-<script src="./assets/js/bootstrap.min.js"></script>
-<script src="./assets/js/main.js"></script>
 </body>
 </html>

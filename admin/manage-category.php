@@ -25,130 +25,57 @@ $query->execute();
 <html lang="en">
    <head>
       
-      <title>Maid Hiring Management System || Manage Category</title>
+      <title>Grocery Store and Maid Service || Manage Category</title>
    
-      <link rel="stylesheet" href="css/bootstrap.min.css" />
-      <!-- site css -->
-      <link rel="stylesheet" href="style.css" />
-      <!-- responsive css -->
-      <link rel="stylesheet" href="css/responsive.css" />
-      <!-- color css -->
-      <link rel="stylesheet" href="css/colors.css" />
-      <!-- select bootstrap -->
-      <link rel="stylesheet" href="css/bootstrap-select.css" />
-      <!-- scrollbar css -->
-      <link rel="stylesheet" href="css/perfect-scrollbar.css" />
-      <!-- custom css -->
-      <link rel="stylesheet" href="css/custom.css" />
-      <!-- calendar file css -->
-      <link rel="stylesheet" href="js/semantic.min.css" />
-      <!-- fancy box js -->
-      <link rel="stylesheet" href="css/jquery.fancybox.css" />
+   <script src="https://cdn.tailwindcss.com"></script>
       
    </head>
    <body class="inner_page tables_page">
-      <div class="full_container">
-         <div class="inner_container">
-            <!-- Sidebar  -->
-          <?php include_once('includes/sidebar.php');?>
-            <!-- right content -->
-            <div id="content">
-               <!-- topbar -->
-              <?php include_once('includes/header.php');?>
-               <!-- end topbar -->
-               <!-- dashboard inner -->
-               <div class="midde_cont">
-                  <div class="container-fluid">
-                     <div class="row column_title">
-                        <div class="col-md-12">
-                           <div class="page_title">
-                              <h2>Manage Category</h2>
-                           </div>
-                        </div>
-                     </div>
-                     <!-- row -->
-                     <div class="row">
-                     
-                      
-                        <div class="col-md-12">
-                           <div class="white_shd full margin_bottom_30">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <h2>Manage Category</h2>
-                                 </div>
-                              </div>
-                              <div class="table_section padding_infor_info">
-                                 <div class="table-responsive-sm">
-                                    <table class="table table-bordered">
-                                       <thead>
-                                          <tr>
-                                             <th>S.No</th>
-                                             <th>Category Name</th>
-                                             <th>Creation Date</th>
-                                             <th>Action</th>
-                                          </tr>
-                                       </thead>
-                                       <tbody>
-                                          <?php
+      <div class="flex min-h-screen bg-gray-100">
+         <?php include_once('includes/sidebar.php');?>
+         <div class="flex-1 flex flex-col">
+            <?php include_once('includes/header.php');?>
+            <main class="flex-1 p-6 md:p-10">
+               <h2 class="text-3xl font-bold text-green-700 mb-8">Manage Category</h2>
+               <div class="max-w-4xl mx-auto bg-white rounded-xl shadow p-8">
+                  <div class="overflow-x-auto">
+                     <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-green-700">
+                           <tr>
+                              <th class="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">S.No</th>
+                              <th class="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Category Name</th>
+                              <th class="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Creation Date</th>
+                              <th class="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Action</th>
+                           </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                           <?php
 $sql="SELECT * from tblcategory";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
-
 $cnt=1;
 if($query->rowCount() > 0)
 {
 foreach($results as $row)
 {               ?> 
-                                          <tr>
-                                             <td><?php echo htmlentities($cnt);?></td>
-                                             <td><?php  echo htmlentities($row->CategoryName);?></td>
-                                             <td><?php  echo htmlentities($row->CreationDate);?></td>
-                                             <td><a href="edit-category.php?editid=<?php echo htmlentities ($row->ID);?>"><i class="btn btn-success" aria-hidden="true">Edit</i></a>&nbsp; <a href="manage-category.php?delid=<?php echo ($row->ID);?>" onclick="return confirm('Do you really want to Delete ?');"><i class="btn btn-danger"> Delete</i></a></td>
-                                          </tr><?php $cnt=$cnt+1;}} ?>
-                                       </tbody>
-                                    </table>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
+                           <tr>
+                              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><?php echo htmlentities($cnt);?></td>
+                              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><?php  echo htmlentities($row->CategoryName);?></td>
+                              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"><?php  echo htmlentities($row->CreationDate);?></td>
+                              <td class="px-6 py-4 whitespace-nowrap text-sm flex gap-2">
+                                 <a href="edit-category.php?editid=<?php echo htmlentities ($row->ID);?>" class="bg-green-500 hover:bg-green-700 text-white px-4 py-1 rounded-full text-xs font-semibold transition">Edit</a>
+                                 <a href="manage-category.php?delid=<?php echo ($row->ID);?>" onclick="return confirm('Do you really want to Delete ?');" class="bg-red-500 hover:bg-red-700 text-white px-4 py-1 rounded-full text-xs font-semibold transition">Delete</a>
+                              </td>
+                           </tr>
+                           <?php $cnt=$cnt+1;}} ?>
+                        </tbody>
+                     </table>
                   </div>
-                  <!-- footer -->
-                 <?php include_once('includes/footer.php');?>
                </div>
-               <!-- end dashboard inner -->
-            </div>
+            </main>
+            <?php include_once('includes/footer.php');?>
          </div>
-         <!-- model popup -->
-       
       </div>
-      <!-- jQuery -->
-      <script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.min.js"></script>
-      <!-- wow animation -->
-      <script src="js/animate.js"></script>
-      <!-- select country -->
-      <script src="js/bootstrap-select.js"></script>
-      <!-- owl carousel -->
-      <script src="js/owl.carousel.js"></script> 
-      <!-- chart js -->
-      <script src="js/Chart.min.js"></script>
-      <script src="js/Chart.bundle.min.js"></script>
-      <script src="js/utils.js"></script>
-      <script src="js/analyser.js"></script>
-      <!-- nice scrollbar -->
-      <script src="js/perfect-scrollbar.min.js"></script>
-      <script>
-         var ps = new PerfectScrollbar('#sidebar');
-      </script>
-      <!-- fancy box js -->
-      <script src="js/jquery-3.3.1.min.js"></script>
-      <script src="js/jquery.fancybox.min.js"></script>
-      <!-- custom js -->
-      <script src="js/custom.js"></script>
-      <!-- calendar file css -->    
-      <script src="js/semantic.min.js"></script>
    </body>
 </html><?php } ?>

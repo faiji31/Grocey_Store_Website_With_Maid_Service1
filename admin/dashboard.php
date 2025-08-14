@@ -75,271 +75,152 @@ if (strlen($_SESSION['mhmsaid'] == 0)) {
 <html lang="en">
    <head>
       <title>Grocery Store and Maid Service Website || Dashboard</title>
-      <link rel="stylesheet" href="css/bootstrap.min.css" />
-      <link rel="stylesheet" href="style.css" />
-      <link rel="stylesheet" href="css/responsive.css" />
-      <link rel="stylesheet" href="css/colors.css" />
-      <link rel="stylesheet" href="css/bootstrap-select.css" />
-      <link rel="stylesheet" href="css/perfect-scrollbar.css" />
-      <link rel="stylesheet" href="css/custom.css" />
-      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-      <style>
-    .card3 {
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        margin: 20px 0; /* Center vertically with space at the top and bottom */
-        width: 100%; /* Take full width of the container */
-        max-width: none; 
-        /* Remove any width restrictions */
-        background-color: #fff;
-    }
-    .card3-header {
-        font-size: 1.25em;
-        font-weight: bold;
-        margin-bottom: 10px;
-        text-align: center; /* Optional: Center align the header */
-    }
-    .card3-body {
-        position: relative;
-    }
-</style>
+   <script src="https://cdn.tailwindcss.com"></script>
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
    </head>
    <body class="dashboard dashboard_1">
-      <div class="full_container">
-         <div class="inner_container">
-            <?php include_once('includes/sidebar.php');?>
-            <div id="content">
-               <?php include_once('includes/header.php');?>
-               <div class="midde_cont">
-                  <div class="container-fluid">
-                     <div class="row column_title">
-                        <div class="col-md-12">
-                           <div class="page_title">
-                              <h2>Dashboard</h2>
-                           </div>
-                        </div>
+      <div class="flex min-h-screen bg-gray-100">
+         <?php include_once('includes/sidebar.php');?>
+         <div class="flex-1 flex flex-col">
+            <?php include_once('includes/header.php');?>
+            <main class="flex-1 p-6 md:p-10">
+               <h2 class="text-3xl font-bold text-green-700 mb-8">Dashboard</h2>
+               <!-- Stats Cards -->
+               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                  <!-- Total Category -->
+                  <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+                     <div class="text-purple-500 mb-2">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
                      </div>
-
-                     <div class="row column1">
-                        <div class="col-md-6 col-lg-3">
-                           <div class="full counter_section margin_bottom_30">
-                              <div class="couter_icon">
-                                 <div> 
-                                    <i class="fa fa-file purple_color"></i>
-                                 </div>
-                              </div>
-                              <div class="counter_no">
-                                 <div>
-                                    <?php 
-                                    $sql1 ="SELECT * from tblcategory";
-                                    $query1 = $dbh -> prepare($sql1);
-                                    $query1->execute();
-                                    $results1=$query1->fetchAll(PDO::FETCH_OBJ);
-                                    $totcat=$query1->rowCount();
-                                    ?>
-                                    <p class="total_no"><?php echo htmlentities($totcat);?></p>
-                                    <p class="head_couter">Total Category<br /><br />
-                                       <a href="manage-category.php" class="btn btn-primary btn-sm">View Details</a></p>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-
-                        <div class="col-md-6 col-lg-3">
-                           <div class="full counter_section margin_bottom_30">
-                              <div class="couter_icon">
-                                 <div> 
-                                    <i class="fa fa-users yellow_color"></i>
-                                 </div>
-                              </div>
-                              <div class="counter_no">
-                                 <div>
-                                    <?php 
-                                    $sql2 ="SELECT * from tblmaid";
-                                    $query2 = $dbh -> prepare($sql2);
-                                    $query2->execute();
-                                    $results2=$query2->fetchAll(PDO::FETCH_OBJ);
-                                    $totmaid=$query2->rowCount();
-                                    ?>
-                                   <p class="total_no"><?php echo htmlentities($totmaid);?></p>
-                                    <p class="head_couter">Listed Maids<br /><br />
-                                       <a href="manage-maid.php" class="btn btn-primary btn-sm">View Details</a></p>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-
-                        <div class="col-md-6 col-lg-3">
-                           <div class="full counter_section margin_bottom_30">
-                              <div class="couter_icon">
-                                 <div> 
-                                    <i class="fa fa-files-o yellow_color"></i>
-                                 </div>
-                              </div>
-                              <div class="counter_no">
-                                 <div>
-                                     <?php 
-                                    $sql3 ="SELECT * from tblmaidbooking where Status='' || Status is null";
-                                    $query3 = $dbh -> prepare($sql3);
-                                    $query3->execute();
-                                    $results3=$query3->fetchAll(PDO::FETCH_OBJ);
-                                    $newreq=$query3->rowCount();
-                                    ?>
-                                   <p class="total_no"><?php echo htmlentities($newreq);?></p>
-                                    <p class="head_couter">New Request<br /><br />
-
-                                       <a href="new-request.php" class="btn btn-primary btn-sm">View Details</a></p>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-
-                        <div class="col-md-6 col-lg-3">
-                           <div class="full counter_section margin_bottom_30">
-                              <div class="couter_icon">
-                                 <div> 
-                                    <i class="fa fa-files-o green_color"></i>
-                                 </div>
-                              </div>
-                              <div class="counter_no">
-                                 <div>
-                                    <?php 
-                                    $sql4 ="SELECT * from tblmaidbooking where Status='Approved'";
-                                    $query4 = $dbh -> prepare($sql4);
-                                    $query4->execute();
-                                    $results4=$query4->fetchAll(PDO::FETCH_OBJ);
-                                    $assreq=$query4->rowCount();
-                                    ?>
-                                   <p class="total_no"><?php echo htmlentities($assreq);?></p>
-                                    <p class="head_couter">Assign Request<br /><br />
-                                       <a href="assign-request.php" class="btn btn-primary btn-sm">View Detail</a></p>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-
-                        <div class="col-md-6 col-lg-3">
-                           <div class="full counter_section margin_bottom_30">
-                              <div class="couter_icon">
-                                 <div> 
-                                    <i class="fa fa-files-o red_color"></i>
-                                 </div>
-                              </div>
-                              <div class="counter_no">
-                                 <div>
-                                     <?php 
-                                    $sql3 ="SELECT * from tblmaidbooking where Status='Cancelled'";
-                                    $query3 = $dbh -> prepare($sql3);
-                                    $query3->execute();
-                                    $results3=$query3->fetchAll(PDO::FETCH_OBJ);
-                                    $canreq=$query3->rowCount();
-                                    ?>
-                                   <p class="total_no"><?php echo htmlentities($canreq);?></p>
-                                    <p class="head_couter">Canceled / Rejected Requests<br /><br />
-
-                                       <a href="cancel-request.php" class="btn btn-primary btn-sm">View Details</a></p>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-
-                        <div class="col-md-6 col-lg-3">
-                           <div class="full counter_section margin_bottom_30">
-                              <div class="couter_icon">
-                                 <div> 
-                                    <i class="fa fa-files-o purple_color"></i>
-                                 </div>
-                              </div>
-                              <div class="counter_no">
-                                 <div>
-                                    <?php 
-                                    $sql4 ="SELECT * from tblmaidbooking ";
-                                    $query4 = $dbh -> prepare($sql4);
-                                    $query4->execute();
-                                    $results4=$query4->fetchAll(PDO::FETCH_OBJ);
-                                    $totreq=$query4->rowCount();
-                                    ?>
-                                   <p class="total_no"><?php echo htmlentities($totreq);?></p>
-                                    <p class="head_couter">Total Request<br /><br /><br />
-                                       <a href="all-request.php" class="btn btn-primary btn-sm">View Details</a></p>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-
-                        <div class="col-md-6 col-lg-3">
-                           <div class="full counter_section margin_bottom_30">
-                              <div class="couter_icon">
-                                 <div>
-                                    <i class="fa fa-check-circle green_color"></i>
-                                 </div>
-                              </div>
-                              <div class="counter_no">
-                                 <div>
-                                    <p class="total_no"><?php echo htmlentities($totalCompletedOrders); ?></p>
-                                    <p class="head_couter">Completed Orders<br /><br />
-                                       <a href="completed-orders.php" class="btn btn-primary btn-sm">View Details</a>
-                                    </p>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
+                     <?php 
+                        $sql1 ="SELECT * from tblcategory";
+                        $query1 = $dbh -> prepare($sql1);
+                        $query1->execute();
+                        $results1=$query1->fetchAll(PDO::FETCH_OBJ);
+                        $totcat=$query1->rowCount();
+                     ?>
+                     <p class="text-3xl font-bold text-gray-800"><?php echo htmlentities($totcat);?></p>
+                     <p class="text-gray-500">Total Category</p>
+                     <a href="manage-category.php" class="mt-2 text-green-700 hover:underline">View Details</a>
+                  </div>
+                  <!-- Listed Maids -->
+                  <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+                     <div class="text-yellow-500 mb-2">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
                      </div>
-
-                         <!-- Line Chart -->
-                  
-                     <div class="card3">
-                        <div class="card3-header">
-                              Daily Orders Chart
-                        </div>
-                        <div class="card3-body">
-                              <canvas id="dailyOrdersChart" width="600" height="120"></canvas>
-                        </div>
+                     <?php 
+                        $sql2 ="SELECT * from tblmaid";
+                        $query2 = $dbh -> prepare($sql2);
+                        $query2->execute();
+                        $results2=$query2->fetchAll(PDO::FETCH_OBJ);
+                        $totmaid=$query2->rowCount();
+                     ?>
+                     <p class="text-3xl font-bold text-gray-800"><?php echo htmlentities($totmaid);?></p>
+                     <p class="text-gray-500">Listed Maids</p>
+                     <a href="manage-maid.php" class="mt-2 text-green-700 hover:underline">View Details</a>
+                  </div>
+                  <!-- New Request -->
+                  <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+                     <div class="text-yellow-500 mb-2">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
                      </div>
-                 
-
- 
-              
-
-
-
-                     <!-- 2 charts in a row Section -->
-                     <div class="row column1">
-                        <div class="col-md-6"> 
-                           <div class="white_shd full margin_bottom_30" style="height: 450px;">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <h2>Service-Wise Distribution</h2>
-                                 </div>
-                              </div>
-                              <div style="width: 100%; height: 350px; margin: 0 auto;">
-                                 <canvas id="serviceDistributionChart"></canvas>
-                              </div>
-                           </div>
-                        </div>
-
-                        <div class="col-md-6">
-                           <div class="white_shd full margin_bottom_30" style="height: 450px;">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <h2>Orders by Area</h2>
-                                 </div>
-                              </div>
-                              <div style="width: 100%; height: 350px; margin: 0 auto;">
-                                 <canvas id="ordersByAreaChart"></canvas>
-                              </div>
-                           </div>
-                        </div>
+                     <?php 
+                        $sql3 ="SELECT * from tblmaidbooking where Status='' || Status is null";
+                        $query3 = $dbh -> prepare($sql3);
+                        $query3->execute();
+                        $results3=$query3->fetchAll(PDO::FETCH_OBJ);
+                        $newreq=$query3->rowCount();
+                     ?>
+                     <p class="text-3xl font-bold text-gray-800"><?php echo htmlentities($newreq);?></p>
+                     <p class="text-gray-500">New Request</p>
+                     <a href="new-request.php" class="mt-2 text-green-700 hover:underline">View Details</a>
+                  </div>
+                  <!-- Assign Request -->
+                  <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+                     <div class="text-green-500 mb-2">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
                      </div>
-                 
+                     <?php 
+                        $sql4 ="SELECT * from tblmaidbooking where Status='Approved'";
+                        $query4 = $dbh -> prepare($sql4);
+                        $query4->execute();
+                        $results4=$query4->fetchAll(PDO::FETCH_OBJ);
+                        $assreq=$query4->rowCount();
+                     ?>
+                     <p class="text-3xl font-bold text-gray-800"><?php echo htmlentities($assreq);?></p>
+                     <p class="text-gray-500">Assign Request</p>
+                     <a href="assign-request.php" class="mt-2 text-green-700 hover:underline">View Details</a>
+                  </div>
+                  <!-- Canceled / Rejected Requests -->
+                  <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+                     <div class="text-red-500 mb-2">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
+                     </div>
+                     <?php 
+                        $sql3 ="SELECT * from tblmaidbooking where Status='Cancelled'";
+                        $query3 = $dbh -> prepare($sql3);
+                        $query3->execute();
+                        $results3=$query3->fetchAll(PDO::FETCH_OBJ);
+                        $canreq=$query3->rowCount();
+                     ?>
+                     <p class="text-3xl font-bold text-gray-800"><?php echo htmlentities($canreq);?></p>
+                     <p class="text-gray-500">Canceled / Rejected Requests</p>
+                     <a href="cancel-request.php" class="mt-2 text-green-700 hover:underline">View Details</a>
+                  </div>
+                  <!-- Total Request -->
+                  <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+                     <div class="text-purple-500 mb-2">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+                     </div>
+                     <?php 
+                        $sql4 ="SELECT * from tblmaidbooking ";
+                        $query4 = $dbh -> prepare($sql4);
+                        $query4->execute();
+                        $results4=$query4->fetchAll(PDO::FETCH_OBJ);
+                        $totreq=$query4->rowCount();
+                     ?>
+                     <p class="text-3xl font-bold text-gray-800"><?php echo htmlentities($totreq);?></p>
+                     <p class="text-gray-500">Total Request</p>
+                     <a href="all-request.php" class="mt-2 text-green-700 hover:underline">View Details</a>
+                  </div>
+                  <!-- Completed Orders -->
+                  <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+                     <div class="text-green-700 mb-2">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+                     </div>
+                     <p class="text-3xl font-bold text-gray-800"><?php echo htmlentities($totalCompletedOrders); ?></p>
+                     <p class="text-gray-500">Completed Orders</p>
+                     <a href="completed-orders.php" class="mt-2 text-green-700 hover:underline">View Details</a>
                   </div>
                </div>
-            </div>
+
+               <!-- Daily Orders Line Chart -->
+               <div class="bg-white rounded-xl shadow p-6 mb-10">
+                  <h3 class="text-xl font-bold text-center mb-4">Daily Orders Chart</h3>
+                  <div class="overflow-x-auto">
+                     <canvas id="dailyOrdersChart" height="120"></canvas>
+                  </div>
+               </div>
+
+               <!-- 2 charts in a row Section -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-white rounded-xl shadow p-6 flex flex-col" style="min-height: 420px;">
+                            <h3 class="text-xl font-bold mb-4">Service-Wise Distribution</h3>
+                            <div class="flex-1 flex items-center justify-center" style="min-height: 350px;">
+                                <canvas id="serviceDistributionChart" style="max-height:350px;" height="350"></canvas>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl shadow p-6 flex flex-col" style="min-height: 420px;">
+                            <h3 class="text-xl font-bold mb-4">Orders by Area</h3>
+                            <div class="flex-1 flex items-center justify-center" style="min-height: 350px;">
+                                <canvas id="ordersByAreaChart" style="max-height:350px;" height="350"></canvas>
+                            </div>
+                        </div>
+                    </div>
+            </main>
          </div>
       </div>
       
@@ -348,44 +229,81 @@ if (strlen($_SESSION['mhmsaid'] == 0)) {
 
       <script>
          document.addEventListener("DOMContentLoaded", function () {
-             // Service-Wise Distribution Chart
-             const ctxService = document.getElementById('serviceDistributionChart').getContext('2d');
-             new Chart(ctxService, {
-                 type: 'pie',
-                 data: {
-                     labels: <?php echo json_encode($categories); ?>,
-                     datasets: [{
-                         data: <?php echo json_encode($counts); ?>,
-                         backgroundColor: [
-                             'rgba(255, 99, 132, 0.2)',
-                             'rgba(54, 162, 235, 0.2)',
-                             'rgba(255, 206, 86, 0.2)',
-                             'rgba(75, 192, 192, 0.2)',
-                             'rgba(153, 102, 255, 0.2)',
-                             'rgba(255, 159, 64, 0.2)'
-                         ],
-                         borderColor: [
-                             'rgba(255, 99, 132, 1)',
-                             'rgba(54, 162, 235, 1)',
-                             'rgba(255, 206, 86, 1)',
-                             'rgba(75, 192, 192, 1)',
-                             'rgba(153, 102, 255, 1)',
-                             'rgba(255, 159, 64, 1)'
-                         ],
-                         borderWidth: 1
-                     }]
-                 },
-                 options: {
-                     responsive: true,
-                     maintainAspectRatio: false,
-                     plugins: {
-                         legend: {
-                             display: true,
-                             position: 'top'
-                         }
-                     }
-                 }
-             });
+
+            // Service-Wise Distribution Chart (Pie)
+            const ctxService = document.getElementById('serviceDistributionChart').getContext('2d');
+            new Chart(ctxService, {
+                type: 'pie',
+                data: {
+                    labels: <?php echo json_encode($categories); ?>,
+                    datasets: [{
+                        data: <?php echo json_encode($counts); ?>,
+                        backgroundColor: [
+                            '#22c55e', // green
+                            '#3b82f6', // blue
+                            '#f59e42', // orange
+                            '#f43f5e', // rose
+                            '#a21caf', // purple
+                            '#facc15', // yellow
+                            '#0ea5e9', // sky
+                            '#eab308', // amber
+                        ],
+                        borderColor: '#fff',
+                        borderWidth: 3,
+                        hoverOffset: 16,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: {
+                                color: '#334155',
+                                font: { size: 16, weight: 'bold' },
+                                padding: 20,
+                                boxWidth: 24,
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    let value = context.parsed || 0;
+                                    return `${label}: ${value}`;
+                                }
+                            }
+                        },
+                        datalabels: {
+                            display: true,
+                            color: '#222',
+                            font: { weight: 'bold', size: 14 },
+                            formatter: function(value, context) {
+                                return value;
+                            }
+                        }
+                    },
+                    layout: {
+                        padding: 20
+                    },
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true
+                    }
+                },
+                plugins: [
+                    {
+                        id: 'customBorderRadius',
+                        afterUpdate: chart => {
+                            chart.data.datasets.forEach(dataset => {
+                                dataset.borderRadius = 16;
+                            });
+                        }
+                    }
+                ]
+            });
 
              // Orders by Area Chart
              const ctxArea = document.getElementById('ordersByAreaChart').getContext('2d');
@@ -477,12 +395,6 @@ new Chart(ctxDaily, {
 
          });
       </script>
-      <script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.min.js"></script>
-      <script src="js/animate.js"></script>
-      <script src="js/bootstrap-select.js"></script>
-      <script src="js/perfect-scrollbar.min.js"></script>
-      <script src="js/custom.js"></script>
+   <!-- No Bootstrap JS needed, Tailwind handles layout -->
    </body>
 </html>

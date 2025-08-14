@@ -98,194 +98,95 @@ echo "<script>alert('Email-id,Employee Id or Mobile Number already exist. Please
    <head>
       <title>Maid Hirirng Management System || Add Maid</title>
     
-      <link rel="stylesheet" href="css/bootstrap.min.css" />
-      <!-- site css -->
-      <link rel="stylesheet" href="style.css" />
-      <!-- responsive css -->
-      <link rel="stylesheet" href="css/responsive.css" />
-      <!-- color css -->
-      <link rel="stylesheet" href="css/colors.css" />
-      <!-- select bootstrap -->
-      <link rel="stylesheet" href="css/bootstrap-select.css" />
-      <!-- scrollbar css -->
-      <link rel="stylesheet" href="css/perfect-scrollbar.css" />
-      <!-- custom css -->
-      <link rel="stylesheet" href="css/custom.css" />
-      <!-- calendar file css -->
-      <link rel="stylesheet" href="js/semantic.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
      
    </head>
    <body class="inner_page general_elements">
-      <div class="full_container">
-         <div class="inner_container">
-            <!-- Sidebar  -->
-           <?php include_once('includes/sidebar.php');?>
-            <!-- end sidebar -->
-            <!-- right content -->
-            <div id="content">
-               <!-- topbar -->
-               <?php include_once('includes/header.php');?>
-               <!-- end topbar -->
-               <!-- dashboard inner -->
-               <div class="midde_cont">
-                  <div class="container-fluid">
-                     <div class="row column_title">
-                        <div class="col-md-12">
-                           <div class="page_title">
-                              <h2>Add Maid</h2>
-                           </div>
-                        </div>
-                     </div>
-                     <!-- row -->
-                     <div class="row column8 graph">
-                      
-                        <div class="col-md-12">
-                           <div class="white_shd full margin_bottom_30">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <h2>Add Maid</h2>
-                                 </div>
-                              </div>
-                              <div class="full progress_bar_inner">
-                                 <div class="row">
-                                    <div class="col-md-12">
-                                       <div class="full">
-                                          <div class="padding_infor_info">
-                                             <div class="alert alert-primary" role="alert">
-                                             <form method="post" enctype="multipart/form-data">
-    <fieldset>
-        <div class="row">
-            <!-- First part of the form (Left side) -->
-            <div class="col-md-6">
-                <div class="field my-2">
-                    <label class="label_field">Category Name</label>
-                    <select type="text" name="catid" class="form-control" required='true'>
-                        <option value="">Select Category</option>
-                        <?php
-                        $sql2 = "SELECT * from tblcategory";
-                        $query2 = $dbh -> prepare($sql2);
-                        $query2->execute();
-                        $result2 = $query2->fetchAll(PDO::FETCH_OBJ);
-                        foreach($result2 as $row2) {
-                        ?>
-                        <option value="<?php echo htmlentities($row2->ID);?>"><?php echo htmlentities($row2->CategoryName);?></option>
-                        <?php } ?>
-                    </select>
-                </div>
-
-                <div class="field my-2">
-                    <label class="label_field">Maid ID</label>
-                    <input type="text" name="maidid" class="form-control" required='true'>
-                </div>
-
-                <div class="field my-2">
-                    <label class="label_field">Name</label>
-                    <input type="text" name="name" class="form-control" required='true'>
-                </div>
-
-                <div class="field my-2">
-                    <label class="label_field">Email</label>
-                    <input type="email" name="email" class="form-control" required='true'>
-                </div>
-
-                <div class="field my-2">
-                    <label class="label_field">Gender</label>
-                    <select type="text" name="gender" class="form-control" required='true'>
-                        <option value="">Select Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
-                </div>
-
-                <div class="field my-2">
-                    <label class="label_field">Contact Number</label>
-                    <input type="text" name="contno" class="form-control" required='true' maxlength="10" pattern="[0-9]+">
-                </div>
-            </div>
-            
-            <!-- Second part of the form (Right side) -->
-            <div class="col-md-6">
-                <div class="field my-2">
-                    <label class="label_field">Experience</label>
-                    <input type="text" name="experience" class="form-control" required='true'>
-                </div>
-
-                <div class="field my-2">
-                    <label class="label_field">Date of Birth</label>
-                    <input type="date" name="dob" class="form-control" required='true'>
-                </div>
-
-                <div class="field my-2">
-                    <label class="label_field">Address</label>
-                    <textarea type="text" name="add" class="form-control" required='true'></textarea>
-                </div>
-
-                <div class="field my-2">
-                    <label class="label_field">Description (if any)</label>
-                    <textarea type="text" name="desc" class="form-control"></textarea>
-                </div>
-
-                <div class="field my-2">
-                    <label class="label_field">Maid Pic</label>
-                    <input type="file" name="pic" class="form-control" required='true'>
-                </div>
-
-                <div class="field my-2">
-                    <label class="label_field">ID Proof</label>
-                    <input type="file" name="idproof" class="form-control" required='true'>
-                </div>
-
-                <div class="field margin_0 my-2">
-                    <button class="main_bt" type="submit" name="submit" id="submit">Add</button>
-                </div>
+        <div class="flex min-h-screen bg-gray-100">
+            <?php include_once('includes/sidebar.php');?>
+            <div class="flex-1 flex flex-col">
+                <?php include_once('includes/header.php');?>
+                <main class="flex-1 p-6 md:p-10">
+                    <h2 class="text-3xl font-bold text-green-700 mb-8">Add Maid</h2>
+                    <div class="max-w-3xl mx-auto bg-white rounded-xl shadow p-8">
+                        <form method="post" enctype="multipart/form-data" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-lg font-semibold text-green-700 mb-2">Category Name</label>
+                                        <select name="catid" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition shadow-sm">
+                                            <option value="">Select Category</option>
+                                            <?php
+                                            $sql2 = "SELECT * from tblcategory";
+                                            $query2 = $dbh -> prepare($sql2);
+                                            $query2->execute();
+                                            $result2 = $query2->fetchAll(PDO::FETCH_OBJ);
+                                            foreach($result2 as $row2) {
+                                            ?>
+                                            <option value="<?php echo htmlentities($row2->ID);?>"><?php echo htmlentities($row2->CategoryName);?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-lg font-semibold text-green-700 mb-2">Maid ID</label>
+                                        <input type="text" name="maidid" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition shadow-sm">
+                                    </div>
+                                    <div>
+                                        <label class="block text-lg font-semibold text-green-700 mb-2">Name</label>
+                                        <input type="text" name="name" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition shadow-sm">
+                                    </div>
+                                    <div>
+                                        <label class="block text-lg font-semibold text-green-700 mb-2">Email</label>
+                                        <input type="email" name="email" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition shadow-sm">
+                                    </div>
+                                    <div>
+                                        <label class="block text-lg font-semibold text-green-700 mb-2">Gender</label>
+                                        <select name="gender" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition shadow-sm">
+                                            <option value="">Select Gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-lg font-semibold text-green-700 mb-2">Contact Number</label>
+                                        <input type="text" name="contno" required maxlength="10" pattern="[0-9]+" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition shadow-sm">
+                                    </div>
+                                </div>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-lg font-semibold text-green-700 mb-2">Experience</label>
+                                        <input type="text" name="experience" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition shadow-sm">
+                                    </div>
+                                    <div>
+                                        <label class="block text-lg font-semibold text-green-700 mb-2">Date of Birth</label>
+                                        <input type="date" name="dob" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition shadow-sm">
+                                    </div>
+                                    <div>
+                                        <label class="block text-lg font-semibold text-green-700 mb-2">Address</label>
+                                        <textarea name="add" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition shadow-sm"></textarea>
+                                    </div>
+                                    <div>
+                                        <label class="block text-lg font-semibold text-green-700 mb-2">Description (if any)</label>
+                                        <textarea name="desc" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition shadow-sm"></textarea>
+                                    </div>
+                                    <div>
+                                        <label class="block text-lg font-semibold text-green-700 mb-2">Maid Pic</label>
+                                        <input type="file" name="pic" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition shadow-sm">
+                                    </div>
+                                    <div>
+                                        <label class="block text-lg font-semibold text-green-700 mb-2">ID Proof</label>
+                                        <input type="file" name="idproof" required class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition shadow-sm">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center pt-6">
+                                <button type="submit" name="submit" id="submit" class="bg-gradient-to-r from-green-500 to-green-700 text-white font-bold px-10 py-2 rounded-full shadow-lg hover:from-green-600 hover:to-green-800 transition text-lg">Add</button>
+                            </div>
+                        </form>
+                    </div>
+                </main>
+                <?php include_once('includes/footer.php');?>
             </div>
         </div>
-    </fieldset>
-</form>
-</div>
-                                            
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <!-- funcation section -->
-                     
-                     </div>
-                  </div>
-                  <!-- footer -->
-                 <?php include_once('includes/footer.php');?>
-               </div>
-               <!-- end dashboard inner -->
-            </div>
-         </div>
-         <!-- model popup -->
-    
-      </div>
-      <!-- jQuery -->
-      <script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.min.js"></script>
-      <!-- wow animation -->
-      <script src="js/animate.js"></script>
-      <!-- select country -->
-      <script src="js/bootstrap-select.js"></script>
-      <!-- owl carousel -->
-      <script src="js/owl.carousel.js"></script> 
-      <!-- chart js -->
-      <script src="js/Chart.min.js"></script>
-      <script src="js/Chart.bundle.min.js"></script>
-      <script src="js/utils.js"></script>
-      <script src="js/analyser.js"></script>
-      <!-- nice scrollbar -->
-      <script src="js/perfect-scrollbar.min.js"></script>
-      <script>
-         var ps = new PerfectScrollbar('#sidebar');
-      </script>
-      <!-- custom js -->
-      <script src="js/custom.js"></script>
-      <!-- calendar file css -->    
-      <script src="js/semantic.min.js"></script>
    </body>
 </html><?php } ?>

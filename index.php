@@ -6,143 +6,48 @@ include('includes/dbconnection.php');
 ?>
 
 <!doctype html>
-<html lang="zxx">
+<html lang="en">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grocery Store and Maid Service Management System || Home Page</title>
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
-    
-    <!-- External Stylesheets -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="assets/css/style.css">
-
-    <!-- External Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <style>
-      /* Improved Slider Styling */
-.slider-area {
-    position: relative;
-    overflow: hidden;
-    background-color: #f8f9fa; /* Light background for better contrast */
-}
-
-.slider-active .single-slider {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 450px; /* Adjusted height for better visibility */
-    background-size: contain; /* Ensure the image is fully visible */
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.slider-active .hero__caption {
-    text-align: center;
-    color: #000; /* Use darker text for readability */
-}
-
-.slider-active .hero__caption h1 {
-    font-size: 40px; /* Scaled down for better balance */
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.slider-active .hero__caption p {
-    font-size: 18px;
-    margin-bottom: 20px;
-    color: #555; /* Softer color for secondary text */
-}
-
-.slider-active .btn {
-    font-size: 16px;
-    padding: 10px 20px;
-    border-radius: 6px;
-}
-
-.slick-dots {
-    bottom: 20px;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 992px) {
-    .slider-active .single-slider {
-        height: 300px; /* Adjust height for tablets */
-    }
-    .slider-active .hero__caption h1 {
-        font-size: 32px;
-    }
-}
-
-@media (max-width: 576px) {
-    .slider-active .single-slider {
-        height: 250px; /* Adjust height for mobile devices */
-    }
-    .slider-active .hero__caption h1 {
-        font-size: 24px;
-    }
-    .slider-active .hero__caption p {
-        font-size: 16px;
-    }
-}
-
-/* Additional Styling */
-
-.btn-info{
-    background-color: black !important;
-}
-
-    </style>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800 min-h-screen">
     <?php include_once('includes/header.php'); ?>
     <main>
 <!-- Hero Section -->
-<div class="slider-area">
-    <div class="slider-active slick-slider">
-        <!-- Slide 1 -->
-        <div class="single-slider" >
-            <div class="container">
-                <div class="row justify-content-center align-items-center">
-                    
-                    <div class="col-lg-8 text-center">
-                        <h1 class="display-5 fw-bold text-uppercase text-primary fw-bold mt-4">Smart Grocery Store & Maid Services</h1>
-                        <p class="fs-5 mt-4 text-dark">Experience a wide range of grocery and household solutions tailored to your needs!</p>
-                
-                        <a href="javascript:void(0);" id="sliderOrderServiceButton" class="btn btn-info btn-lg px-5 py-4 mt-3">Order Grocery & Maid Service</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+<section class="relative h-80 md:h-[28rem] flex items-center justify-center bg-cover bg-center mb-10" style="background-image: url('assets/img/hero/home-hero.jpg');">
+    <div class="absolute inset-0 bg-gradient-to-r from-green-800/80 to-green-400/60"></div>
+    <div class="relative z-10 text-center px-4">
+        <h1 class="text-white text-4xl md:text-5xl font-extrabold drop-shadow mb-4 uppercase flex items-center justify-center gap-2">
+            <svg class="w-10 h-10 inline-block text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+            Smart Grocery Store & Maid Services
+        </h1>
+        <p class="text-white text-lg md:text-2xl font-medium drop-shadow mb-4">Experience a wide range of grocery and household solutions tailored to your needs!</p>
+        <a href="javascript:void(0);" id="sliderOrderServiceButton" class="inline-block bg-black text-white font-bold px-8 py-3 rounded-full shadow-lg hover:bg-green-700 transition text-lg">Order Grocery & Maid Service</a>
     </div>
-</div>
+</section>
 
 <!-- Service Search Section -->
-<section class="service-section my-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center">
-                <h2 class="section-title text-success fw-bold mb-4">Available Grocery & Maid Services</h2>
-            </div>
-        </div>
-        <div class="row">
-            <form method="GET" action="" class="col-md-8 offset-md-2">
-                <div class="form-group mb-3">
-                    <label for="area" class="fw-bold">Select Preferred Area:</label>
-                    <select name="area" id="area" class="form-control form-select" required>
-                        <option value="" <?= empty($_GET['area']) ? 'selected' : '' ?>>-- Select Area --</option>
-                        <option value="Basundhara R/A" <?= (isset($_GET['area']) && $_GET['area'] == 'Basundhara R/A') ? 'selected' : '' ?>>Basundhara R/A</option>
-                        <option value="Banani" <?= (isset($_GET['area']) && $_GET['area'] == 'Banani') ? 'selected' : '' ?>>Banani</option>
-                        <option value="Gulshan" <?= (isset($_GET['area']) && $_GET['area'] == 'Gulshan') ? 'selected' : '' ?>>Gulshan</option>
-                        <option value="Uttara" <?= (isset($_GET['area']) && $_GET['area'] == 'Uttara') ? 'selected' : '' ?>>Uttara</option>
-                        <option value="Badda" <?= (isset($_GET['area']) && $_GET['area'] == 'Badda') ? 'selected' : '' ?>>Badda</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary w-100">Search</button>
-            </form>
-        </div>
-        <div class="row mt-4">
+<section class="py-12">
+    <div class="max-w-3xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-green-700 mb-6 text-center">Available Grocery & Maid Services</h2>
+        <form method="GET" action="" class="bg-white rounded-xl shadow-lg p-6 mb-8 flex flex-col md:flex-row items-center gap-4">
+            <label for="area" class="block text-green-700 font-semibold mb-1 md:mb-0">Select Preferred Area:</label>
+            <select name="area" id="area" class="w-full md:w-64 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition shadow-sm" required>
+                <option value="" <?= empty($_GET['area']) ? 'selected' : '' ?>>-- Select Area --</option>
+                <option value="Basundhara R/A" <?= (isset($_GET['area']) && $_GET['area'] == 'Basundhara R/A') ? 'selected' : '' ?>>Basundhara R/A</option>
+                <option value="Banani" <?= (isset($_GET['area']) && $_GET['area'] == 'Banani') ? 'selected' : '' ?>>Banani</option>
+                <option value="Gulshan" <?= (isset($_GET['area']) && $_GET['area'] == 'Gulshan') ? 'selected' : '' ?>>Gulshan</option>
+                <option value="Uttara" <?= (isset($_GET['area']) && $_GET['area'] == 'Uttara') ? 'selected' : '' ?>>Uttara</option>
+                <option value="Badda" <?= (isset($_GET['area']) && $_GET['area'] == 'Badda') ? 'selected' : '' ?>>Badda</option>
+            </select>
+            <button type="submit" class="bg-gradient-to-r from-green-500 to-green-700 text-white font-bold px-8 py-2 rounded-full shadow-lg hover:from-green-600 hover:to-green-800 transition text-lg">Search</button>
+        </form>
+        <div>
             <?php
             if (isset($_GET['area']) && !empty($_GET['area'])) {
                 $area = htmlspecialchars($_GET['area']);
@@ -152,24 +57,23 @@ include('includes/dbconnection.php');
                 $query->execute();
                 $result = $query->fetch(PDO::FETCH_OBJ);
                 $maidCount = $result->MaidCount;
-
                 if ($maidCount > 0): ?>
-                    <div class="col-12 text-center">
-                        <p class="text-success fs-5">
-                            Grocery Store and Maid Service is available in <strong><?= $area ?></strong>.<br>
-                            <strong><?= $maidCount ?></strong> maid(s) work in this area.
+                    <div class="text-center bg-green-50 border border-green-200 rounded-xl p-6 mb-4">
+                        <p class="text-green-700 text-lg mb-2">
+                            Grocery Store and Maid Service is available in <span class="font-bold"><?= $area ?></span>.<br>
+                            <span class="font-bold text-green-900 text-xl"><?= $maidCount ?></span> maid(s) work in this area.
                         </p>
-                        <a href="javascript:void(0);" id="searchOrderServiceButton" class="btn btn-success me-3">Order Grocery & Maid Service</a>
-                        <a href="grocery-list.php?area=<?= urlencode($area) ?>" class="btn btn-primary">Visit Grocery Page</a>
+                        <a href="javascript:void(0);" id="searchOrderServiceButton" class="inline-block bg-green-600 text-white font-bold px-6 py-2 rounded-full shadow hover:bg-green-800 transition mr-2">Order Grocery & Maid Service</a>
+                        <a href="grocery-list.php?area=<?= urlencode($area) ?>" class="inline-block bg-blue-600 text-white font-bold px-6 py-2 rounded-full shadow hover:bg-blue-800 transition">Visit Grocery Page</a>
                     </div>
                 <?php else: ?>
-                    <div class="col-12 text-center">
-                        <p class="text-danger fs-5">Grocery Store and Maid Service is not available in <strong><?= $area ?></strong>.</p>
+                    <div class="text-center bg-red-50 border border-red-200 rounded-xl p-6 mb-4">
+                        <p class="text-red-700 text-lg">Grocery Store and Maid Service is not available in <span class="font-bold"><?= $area ?></span>.</p>
                     </div>
                 <?php endif;
             } else { ?>
-                <div class="col-12 text-center">
-                    <p class="text-muted fs-5">Please select an area to see available grocery store and maid services.</p>
+                <div class="text-center bg-gray-50 border border-gray-200 rounded-xl p-6 mb-4">
+                    <p class="text-gray-500 text-lg">Please select an area to see available grocery store and maid services.</p>
                 </div>
             <?php } ?>
         </div>
