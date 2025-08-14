@@ -36,21 +36,7 @@ echo "<script>alert('Email id or Mobile no is invalid');</script>";
     
       <title>Maid Hiring Management System || Forgot Page</title>
      
-      <link rel="stylesheet" href="css/bootstrap.min.css" />
-      <!-- site css -->
-      <link rel="stylesheet" href="style.css" />
-      <!-- responsive css -->
-      <link rel="stylesheet" href="css/responsive.css" />
-      <!-- color css -->
-      <link rel="stylesheet" href="css/colors.css" />
-      <!-- select bootstrap -->
-      <link rel="stylesheet" href="css/bootstrap-select.css" />
-      <!-- scrollbar css -->
-      <link rel="stylesheet" href="css/perfect-scrollbar.css" />
-      <!-- custom css -->
-      <link rel="stylesheet" href="css/custom.css" />
-      <!-- calendar file css -->
-      <link rel="stylesheet" href="js/semantic.min.css" />
+   <script src="https://cdn.tailwindcss.com"></script>
    <script type="text/javascript">
 function valid()
 {
@@ -64,61 +50,34 @@ return true;
 }
 </script>
    </head>
-   <body class="inner_page login">
-      <div class="full_container">
-         <div class="container">
-            <div class="center verticle_center full_height">
-               <div class="login_section">
-                  <div class="logo_login">
-                     <div class="center">
-                        <h3 style="color: white;">Maid Hiring Management System</h3>
-                     </div>
-                  </div>
-                  <div class="login_form">
-                     <form method="post" name="chngpwd" onSubmit="return valid();">
-                        <fieldset>
-                           <div class="field">
-                              <label class="label_field">Email</label>
-                              <input type="email" class="form-control" placeholder="Email" required="true" name="email">
-                           </div>
-                           <div class="field">
-                              <label class="label_field">Mobile Number</label>
-                             <input type="text" class="form-control" placeholder="Mobile Number" required="true" name="mobile" maxlength="10" pattern="[0-9]+">
-                           </div>
-                           <div class="field">
-                              <label class="label_field">New Password</label>
-                             <input type="password" class="form-control" name="newpassword" placeholder="New Password" required="true">
-                           </div>
-                           <div class="field">
-                              <label class="label_field">Confirm Password</label>
-                             <input type="password" class="form-control" name="confirmpassword" placeholder="Confirm Password" required="true">
-                           </div>
-                           <div class="field margin_0">
-                              <label class="label_field hidden">hidden label</label>
-                              <button class="main_bt" name="submit" type="submit">RESET</button>
-                           </div>
-                        </fieldset>
-                        <a class="forgot" href="login.php">Login</a>
-                     </form>
-                  </div>
-               </div>
-            </div>
+   <body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-200 via-green-100 to-green-400">
+      <div class="w-full max-w-md mx-auto bg-white rounded-2xl shadow-2xl p-8 md:p-10 border border-green-200">
+         <div class="flex flex-col items-center mb-8">
+            <svg class="w-16 h-16 text-green-600 mb-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364l-1.414 1.414M6.05 17.95l-1.414 1.414M17.95 17.95l-1.414-1.414M6.05 6.05L4.636 4.636"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+            <h3 class="text-2xl font-bold text-green-700 text-center">Maid Hiring Management System</h3>
          </div>
+         <form method="post" name="chngpwd" onSubmit="return valid();" class="space-y-6">
+            <div>
+               <label class="block text-green-700 font-semibold mb-1">Email</label>
+               <input type="email" placeholder="Email" required name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-400 focus:border-green-500 transition shadow-sm bg-gray-50">
+            </div>
+            <div>
+               <label class="block text-green-700 font-semibold mb-1">Mobile Number</label>
+               <input type="text" placeholder="Mobile Number" required name="mobile" maxlength="10" pattern="[0-9]+" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-400 focus:border-green-500 transition shadow-sm bg-gray-50">
+            </div>
+            <div>
+               <label class="block text-green-700 font-semibold mb-1">New Password</label>
+               <input type="password" name="newpassword" placeholder="New Password" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-400 focus:border-green-500 transition shadow-sm bg-gray-50">
+            </div>
+            <div>
+               <label class="block text-green-700 font-semibold mb-1">Confirm Password</label>
+               <input type="password" name="confirmpassword" placeholder="Confirm Password" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-400 focus:border-green-500 transition shadow-sm bg-gray-50">
+            </div>
+            <button name="submit" type="submit" class="w-full bg-gradient-to-r from-green-500 to-green-700 text-white font-bold py-2 rounded-full shadow-lg hover:from-green-600 hover:to-green-800 transition text-lg">RESET</button>
+            <div class="text-center pt-2">
+               <a href="login.php" class="text-green-700 hover:underline text-sm">Login</a>
+            </div>
+         </form>
       </div>
-      <!-- jQuery -->
-      <script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.min.js"></script>
-      <!-- wow animation -->
-      <script src="js/animate.js"></script>
-      <!-- select country -->
-      <script src="js/bootstrap-select.js"></script>
-      <!-- nice scrollbar -->
-      <script src="js/perfect-scrollbar.min.js"></script>
-      <script>
-         var ps = new PerfectScrollbar('#sidebar');
-      </script>
-      <!-- custom js -->
-      <script src="js/custom.js"></script>
    </body>
 </html>
