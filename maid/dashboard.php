@@ -35,49 +35,32 @@ if (isset($_POST['updateStatus'])) {
 <html lang="en">
 <head>
     <title>Maid Dashboard</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="dashboard dashboard_1">
-<div class="full_container">
-    <div class="inner_container">
-        <?php include_once('includes/sidebar.php'); ?>
-        <div id="content">
-            <?php include_once('includes/header.php'); ?>
-            <div class="midde_cont">
-                <div class="container-fluid">
-                    <div class="row column_title">
-                        <div class="col-md-12">
-                            <div class="page_title">
-                                <h2>Dashboard</h2>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Grocery Orders Table -->
-                    <div class="row d-flex justify-content-center align-items-center">
-                        <div class="col-md-12">
-                            <div class="white_shd full margin_bottom_30">
-                                <div class="full graph_head">
-                                    <div class="heading1 margin_0">
-                                        <h2>Grocery Orders</h2>
-                                    </div>
-                                </div>
-                                <div class="table_section padding_infor_info">
-                                    <div class="table-responsive-lg">
-                                        <table class="table table-bordered table-striped table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>Order ID</th>
-                                                    <th>Customer Name</th>
-                                                    <th>Phone Number</th>
-                                                    <th>Delivery Address</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
+<body class="bg-gray-100 min-h-screen flex">
+    <?php include_once('includes/sidebar.php'); ?>
+    <div class="flex-1 flex flex-col min-h-screen" style="min-width:0;">
+        <?php include_once('includes/header.php'); ?>
+        <main class="flex-1 p-6 md:p-10 mt-4">
+            <h2 class="text-3xl font-bold text-green-700 mb-8">Dashboard</h2>
+            <!-- Grocery Orders Table -->
+            <div class="mb-10">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-green-700 mb-4">Grocery Orders</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-green-200">
+                            <thead class="bg-green-100">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-xs font-bold text-green-700 uppercase">Order ID</th>
+                                    <th class="px-4 py-2 text-left text-xs font-bold text-green-700 uppercase">Customer Name</th>
+                                    <th class="px-4 py-2 text-left text-xs font-bold text-green-700 uppercase">Phone Number</th>
+                                    <th class="px-4 py-2 text-left text-xs font-bold text-green-700 uppercase">Delivery Address</th>
+                                    <th class="px-4 py-2 text-left text-xs font-bold text-green-700 uppercase">Status</th>
+                                    <th class="px-4 py-2 text-left text-xs font-bold text-green-700 uppercase">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-green-100">
+                                <?php
                                                 $sqlGrocery = "SELECT * FROM tblgrocerybooking WHERE AssignTo = :maidId AND Status = 'HandOverTo'";
                                                 $queryGrocery = $dbh->prepare($sqlGrocery);
                                                 $queryGrocery->bindParam(':maidId', $maidId, PDO::PARAM_STR);
@@ -87,113 +70,94 @@ if (isset($_POST['updateStatus'])) {
                                                 if ($queryGrocery->rowCount() > 0) {
                                                     foreach ($groceryResults as $row) {
                                                 ?>
-                                                <tr>
-                                                    <td><?php echo htmlentities($row->ID); ?></td>
-                                                    <td><?php echo htmlentities($row->UserName); ?></td>
-                                                    <td><?php echo htmlentities($row->PhoneNumber); ?></td>
-                                                    <td><?php echo htmlentities($row->FullArea); ?></td>
-                                                    <td><?php echo htmlentities($row->Status); ?></td>
-                                                    <td>
-                                                        <form method="post" class="text-center">
-                                                            <input type="hidden" name="orderId" value="<?php echo $row->ID; ?>">
-                                                            <input type="hidden" name="table" value="tblgrocerybooking">
-                                                            <select name="status" class="form-control form-control-sm">
-                                                                <option value="Completed">Completed</option>
-                                                                <option value="Cancelled">Cancelled</option>
-                                                            </select>
-                                                            <button type="submit" name="updateStatus" class="btn btn-primary btn-sm mt-2">Update</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
+                                    <tr>
+                                        <td class="px-4 py-2 font-medium text-gray-700"><?php echo htmlentities($row->ID); ?></td>
+                                        <td class="px-4 py-2 text-gray-600"><?php echo htmlentities($row->UserName); ?></td>
+                                        <td class="px-4 py-2 text-gray-600"><?php echo htmlentities($row->PhoneNumber); ?></td>
+                                        <td class="px-4 py-2 text-gray-600"><?php echo htmlentities($row->FullArea); ?></td>
+                                        <td class="px-4 py-2 text-green-700 font-semibold"><?php echo htmlentities($row->Status); ?></td>
+                                        <td class="px-4 py-2">
+                                            <form method="post" class="flex flex-col items-center space-y-2">
+                                                <input type="hidden" name="orderId" value="<?php echo $row->ID; ?>">
+                                                <input type="hidden" name="table" value="tblgrocerybooking">
+                                                <select name="status" class="w-32 px-2 py-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-400 focus:border-green-500 transition">
+                                                    <option value="Completed">Completed</option>
+                                                    <option value="Cancelled">Cancelled</option>
+                                                </select>
+                                                <button type="submit" name="updateStatus" class="bg-gradient-to-r from-green-500 to-green-700 text-white font-bold px-4 py-1 rounded-full shadow hover:from-green-600 hover:to-green-800 transition text-sm">Update</button>
+                                            </form>
+                                        </td>
+                                    </tr>
                                                 <?php }
-                                                } else {
-                                                    echo '<tr><td colspan="6">No Grocery Orders Found</td></tr>';
-                                                } ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Maid Orders Table -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="white_shd full margin_bottom_30">
-                                <div class="full graph_head">
-                                    <div class="heading1 margin_0">
-                                        <h2>Maid Bookings</h2>
-                                    </div>
-                                </div>
-                                <div class="table_section padding_infor_info">
-                                    <div class="table-responsive-sm">
-                                        <table class="table table-bordered table-striped table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>Booking ID</th>
-                                                    <th>Name</th>
-                                                    <th>Mobile Number</th>
-                                                    <th>Email</th>
-                                                    <th>Address</th>
-                                                    <th>Category</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                    $sqlMaid = "SELECT m.*, c.CategoryName 
-                                                    FROM tblmaidbooking m 
-                                                    LEFT JOIN tblcategory c ON m.CatID = c.ID 
-                                                    WHERE m.AssignTo = :maidId AND m.Status = 'Approved';
-                                                    ";
-                                                                                                    $queryMaid = $dbh->prepare($sqlMaid);
-                                                $queryMaid->bindParam(':maidId', $maidId, PDO::PARAM_STR);
-                                                $queryMaid->execute();
-                                                $maidResults = $queryMaid->fetchAll(PDO::FETCH_OBJ);
-
-                                                if ($queryMaid->rowCount() > 0) {
-                                                    foreach ($maidResults as $row) {
-                                                ?>
-                                                <tr>
-                                                    <td><?php echo htmlentities($row->BookingID); ?></td>
-                                                    <td><?php echo htmlentities($row->Name); ?></td>
-                                                    <td><?php echo htmlentities($row->ContactNumber); ?></td>
-                                                    <td><?php echo htmlentities($row->Email); ?></td>
-                                                    <td><?php echo htmlentities($row->Address); ?></td>
-                                                    <td><?php echo htmlentities($row->CategoryName); ?></td>
-                                                    <td><?php echo htmlentities($row->Status); ?></td>
-                                                    <td>
-                                                        <form method="post" class="text-center">
-                                                            <input type="hidden" name="orderId" value="<?php echo $row->ID; ?>">
-                                                            <input type="hidden" name="table" value="tblmaidbooking">
-                                                            <select name="status" class="form-control form-control-sm ">
-                                                                <option value="Completed">Completed</option>
-                                                                <option value="Cancelled">Cancelled</option>
-                                                            </select>
-                                                            <button type="submit" name="updateStatus" class="btn btn-primary btn-sm mt-2">Update</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                <?php }
-                                                } else {
-                                                    echo '<tr><td colspan="7">No Maid Bookings Found</td></tr>';
-                                                } ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                } else {
+                                    echo '<tr><td colspan="6" class="px-4 py-2 text-center text-gray-400">No Grocery Orders Found</td></tr>';
+                                } ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <?php include_once('includes/footer.php'); ?>
             </div>
-        </div>
+            <!-- Maid Orders Table -->
+            <div class="bg-white rounded-xl shadow-lg p-6 mt-10">
+                <h3 class="text-xl font-semibold text-green-700 mb-4">Maid Bookings</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-green-200">
+                        <thead class="bg-green-100">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-bold text-green-700 uppercase">Booking ID</th>
+                                <th class="px-4 py-2 text-left text-xs font-bold text-green-700 uppercase">Name</th>
+                                <th class="px-4 py-2 text-left text-xs font-bold text-green-700 uppercase">Mobile Number</th>
+                                <th class="px-4 py-2 text-left text-xs font-bold text-green-700 uppercase">Email</th>
+                                <th class="px-4 py-2 text-left text-xs font-bold text-green-700 uppercase">Address</th>
+                                <th class="px-4 py-2 text-left text-xs font-bold text-green-700 uppercase">Category</th>
+                                <th class="px-4 py-2 text-left text-xs font-bold text-green-700 uppercase">Status</th>
+                                <th class="px-4 py-2 text-left text-xs font-bold text-green-700 uppercase">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-green-100">
+                            <?php
+                                $sqlMaid = "SELECT m.*, c.CategoryName 
+                                FROM tblmaidbooking m 
+                                LEFT JOIN tblcategory c ON m.CatID = c.ID 
+                                WHERE m.AssignTo = :maidId AND m.Status = 'Approved';
+                                ";
+                                $queryMaid = $dbh->prepare($sqlMaid);
+                                $queryMaid->bindParam(':maidId', $maidId, PDO::PARAM_STR);
+                                $queryMaid->execute();
+                                $maidResults = $queryMaid->fetchAll(PDO::FETCH_OBJ);
+                                if ($queryMaid->rowCount() > 0) {
+                                    foreach ($maidResults as $row) {
+                            ?>
+                            <tr>
+                                <td class="px-4 py-2 font-medium text-gray-700"><?php echo htmlentities($row->BookingID); ?></td>
+                                <td class="px-4 py-2 text-gray-600"><?php echo htmlentities($row->Name); ?></td>
+                                <td class="px-4 py-2 text-gray-600"><?php echo htmlentities($row->ContactNumber); ?></td>
+                                <td class="px-4 py-2 text-gray-600"><?php echo htmlentities($row->Email); ?></td>
+                                <td class="px-4 py-2 text-gray-600"><?php echo htmlentities($row->Address); ?></td>
+                                <td class="px-4 py-2 text-gray-600"><?php echo htmlentities($row->CategoryName); ?></td>
+                                <td class="px-4 py-2 text-green-700 font-semibold"><?php echo htmlentities($row->Status); ?></td>
+                                <td class="px-4 py-2">
+                                    <form method="post" class="flex flex-col items-center space-y-2">
+                                        <input type="hidden" name="orderId" value="<?php echo $row->ID; ?>">
+                                        <input type="hidden" name="table" value="tblmaidbooking">
+                                        <select name="status" class="w-32 px-2 py-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-400 focus:border-green-500 transition">
+                                            <option value="Completed">Completed</option>
+                                            <option value="Cancelled">Cancelled</option>
+                                        </select>
+                                        <button type="submit" name="updateStatus" class="bg-gradient-to-r from-green-500 to-green-700 text-white font-bold px-4 py-1 rounded-full shadow hover:from-green-600 hover:to-green-800 transition text-sm">Update</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <?php }
+                                } else {
+                                    echo '<tr><td colspan="8" class="px-4 py-2 text-center text-gray-400">No Maid Bookings Found</td></tr>';
+                                } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+        <?php include_once('includes/footer.php'); ?>
     </div>
-</div>
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
