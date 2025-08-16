@@ -1,32 +1,23 @@
- <nav id="sidebar">
-               <div class="sidebar_blog_1">
-                  <div class="sidebar-header">
-                     <div class="logo_section">
-                        <a href="index.html"><img class="logo_icon img-responsive" src="images/logo/logo_icon.png" alt="#" /></a>
-                     </div>
-                  </div>
-                  <div class="sidebar_user_info">
-                     <div class="icon_setting"></div>
-                     <div class="user_profle_side">
-                        <div class="user_img"><img class="img-responsive" src="images/layout_img/user_img.jpg" alt="#" /></div>
-                        <div class="user_info">
-                          <h6>Agent</h6>
-                          
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="sidebar_blog_2">
-                  <h4>General</h4>
-                  <ul class="list-unstyled components">
-                    
-                     <li><a href="dashboard.php"><i class="fa fa-dashboard yellow_color"></i> <span>Dashboard</span></a></li>
-                     
-                     
-                        </ul>
-                     </li>
-                   
-                    
-                  </ul>
-               </div>
-            </nav>
+<aside class="fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-green-600 to-green-400 shadow-lg z-40 flex flex-col">
+   <div class="flex flex-col items-center py-8 border-b border-green-300">
+      <a href="dashboard.php">
+         <img class="w-16 h-16 rounded-full border-4 border-white shadow mb-2 object-cover" src="images/layout_img/user_img.jpg" alt="User" />
+      </a>
+      <div class="text-center">
+         <div class="text-white font-bold text-lg">Agent</div>
+      </div>
+   </div>
+   <nav class="flex-1 px-4 py-6 overflow-y-auto">
+      <h4 class="text-green-100 font-semibold mb-4 uppercase tracking-wider">General</h4>
+      <ul class="space-y-2">
+         <li>
+            <a href="dashboard.php" class="flex items-center px-3 py-2 rounded-lg text-white hover:bg-green-700 transition">
+               <svg class="w-5 h-5 mr-3 text-yellow-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6m-6 0v6m0 0H7m6 0h6"/></svg>
+               <span>Dashboard</span>
+            </a>
+         </li>
+         <!-- Add more sidebar links here as needed -->
+      </ul>
+   </nav>
+</aside>
+<div class="w-64 flex-shrink-0"></div>

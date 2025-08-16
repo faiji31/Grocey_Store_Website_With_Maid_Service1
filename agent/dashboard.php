@@ -10,154 +10,81 @@ if (strlen($_SESSION['agentid'] == 0)) {
 <head>
     <title>Maid Hiring Management System || Agent Dashboard</title>
 
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="css/responsive.css" />
-    <link rel="stylesheet" href="css/colors.css" />
-    <link rel="stylesheet" href="css/bootstrap-select.css" />
-    <link rel="stylesheet" href="css/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="css/custom.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="dashboard dashboard_1">
-<div class="full_container">
-    <div class="inner_container">
-        <!-- Sidebar  -->
-        <?php include_once('includes/sidebar.php'); ?>
-        <!-- end sidebar -->
-        <!-- right content -->
-        <div id="content">
-            <!-- topbar -->
-            <?php include_once('includes/header.php'); ?>
-            <!-- end topbar -->
-            <!-- dashboard inner -->
-            <div class="midde_cont">
-                <div class="container-fluid">
-                    <div class="row column_title">
-                        <div class="col-md-12">
-                            <div class="page_title">
-                                <h2>Agent Dashboard</h2>
-                            </div>
-                        </div>
+<body class="bg-gray-100 min-h-screen flex">
+    <?php include_once('includes/sidebar.php'); ?>
+    <div class="flex-1 flex flex-col min-h-screen" style="min-width:0;">
+        <?php include_once('includes/header.php'); ?>
+        <main class="flex-1 p-6 md:p-10 mt-4">
+            <h2 class="text-3xl font-bold text-green-700 mb-8">Agent Dashboard</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center">
+                    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-purple-100 mb-4">
+                        <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2a4 4 0 018 0v2M9 17a4 4 0 01-8 0v-2a4 4 0 018 0v2zm0 0v-2a4 4 0 018 0v2m0 0a4 4 0 01-8 0v-2a4 4 0 018 0v2z"/></svg>
                     </div>
-                    <div class="row column1 mx-5">
-                        <div class="col-md-6 col-lg-6">
-                            <div class="full counter_section margin_bottom_30">
-                                <div class="couter_icon">
-                                    <div>
-                                        <i class="fa fa-files-o purple_color"></i>
-                                    </div>
-                                </div>
-                                <div class="counter_no d-flex align-items-center justify-content-center">
-                                    <div>
-                                        <?php
-                                        $sql1 = "SELECT * FROM tblgrocerybooking Where Status='Approved'";
-                                        $query1 = $dbh->prepare($sql1);
-                                        $query1->execute();
-                                        $results1 = $query1->fetchAll(PDO::FETCH_OBJ);
-                                        $totBookings = $query1->rowCount();
-                                        ?>
-                                        <p class="total_no"><?php echo htmlentities($totBookings); ?></p>
-                                        <p class="head_couter">Pending Grocery Orders<br /><br />
-                                            <a href="manage-grocery-orders.php" class="btn btn-primary btn-sm">View Details</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6">
-                            <div class="full counter_section margin_bottom_30">
-                                <div class="couter_icon">
-                                    <div>
-                                        <i class="fa fa-users yellow_color"></i>
-                                    </div>
-                                </div>
-                                <div class="counter_no d-flex align-items-center justify-content-center">
-                                    <div>
-                                        <?php
-                                        $sql2 = "SELECT * FROM tblmaid";
-                                        $query2 = $dbh->prepare($sql2);
-                                        $query2->execute();
-                                        $results2 = $query2->fetchAll(PDO::FETCH_OBJ);
-                                        $totMaids = $query2->rowCount();
-                                        ?>
-                                        <p class="total_no"><?php echo htmlentities($totMaids); ?></p>
-                                        <p class="head_couter">Listed Maids<br /><br />
-                                            <a href="manage-maids.php" class="btn btn-primary btn-sm">View Details</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="row column2 mx-5">
-                        <div class="col-md-6 col-lg-6">
-                            <div class="full counter_section margin_bottom_30">
-                                <div class="couter_icon">
-                                    <div>
-                                        <i class="fa fa-files-o green_color"></i>
-                                    </div>
-                                </div>
-                                <div class="counter_no d-flex align-items-center justify-content-center">
-                                    <div>
-                                        <?php
-                                        $sql3 = "SELECT * FROM tblgrocerybooking WHERE Status='HandOverTo'";
-                                        $query3 = $dbh->prepare($sql3);
-                                        $query3->execute();
-                                        $results3 = $query3->fetchAll(PDO::FETCH_OBJ);
-                                        $completedBookings = $query3->rowCount();
-                                        ?>
-                                        <p class="total_no"><?php echo htmlentities($completedBookings); ?></p>
-                                        <p class="head_couter">Completed Requests<br /><br />
-                                            <a href="completed-grocery-orders.php" class="btn btn-primary btn-sm">View Details</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6">
-                            <div class="full counter_section margin_bottom_30">
-                                <div class="couter_icon">
-                                    <div>
-                                        <i class="fa fa-files-o red_color"></i>
-                                    </div>
-                                </div>
-                                <div class="counter_no d-flex align-items-center justify-content-center">
-                                    <div>
-                                        <?php
-                                        $sql4 = "SELECT * FROM tblgrocerybooking WHERE  Status='Cancelled'";
-                                        $query4 = $dbh->prepare($sql4);
-                        
-                                        $query4->execute();
-                                        $results4 = $query4->fetchAll(PDO::FETCH_OBJ);
-                                        $cancelledBookings = $query4->rowCount();
-                                        ?>
-                                        <p class="total_no"><?php echo htmlentities($cancelledBookings); ?></p>
-                                        <p class="head_couter">Cancelled Requests<br /><br />
-                                            <a href="cancelled-grocery-orders.php" class="btn btn-primary btn-sm">View Details</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
+                    <?php
+                    $sql1 = "SELECT * FROM tblgrocerybooking Where Status='Approved'";
+                    $query1 = $dbh->prepare($sql1);
+                    $query1->execute();
+                    $results1 = $query1->fetchAll(PDO::FETCH_OBJ);
+                    $totBookings = $query1->rowCount();
+                    ?>
+                    <p class="text-3xl font-bold text-gray-800 mb-2"><?php echo htmlentities($totBookings); ?></p>
+                    <p class="text-gray-600 mb-4 text-center">Pending Grocery Orders</p>
+                    <a href="manage-grocery-orders.php" class="bg-gradient-to-r from-green-500 to-green-700 text-white font-bold px-6 py-2 rounded-full shadow hover:from-green-600 hover:to-green-800 transition">View Details</a>
                 </div>
-                <!-- footer -->
-                <?php include_once('includes/footer.php'); ?>
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center">
+                    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-yellow-100 mb-4">
+                        <svg class="w-8 h-8 text-yellow-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87M17 20a4 4 0 01-8 0M9 20a4 4 0 01-8 0v-2a4 4 0 018 0v2zm8-4V4a4 4 0 00-8 0v12"/></svg>
+                    </div>
+                    <?php
+                    $sql2 = "SELECT * FROM tblmaid";
+                    $query2 = $dbh->prepare($sql2);
+                    $query2->execute();
+                    $results2 = $query2->fetchAll(PDO::FETCH_OBJ);
+                    $totMaids = $query2->rowCount();
+                    ?>
+                    <p class="text-3xl font-bold text-gray-800 mb-2"><?php echo htmlentities($totMaids); ?></p>
+                    <p class="text-gray-600 mb-4 text-center">Listed Maids</p>
+                    <a href="manage-maids.php" class="bg-gradient-to-r from-green-500 to-green-700 text-white font-bold px-6 py-2 rounded-full shadow hover:from-green-600 hover:to-green-800 transition">View Details</a>
+                </div>
             </div>
-            <!-- end dashboard inner -->
-        </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center">
+                    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
+                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2a4 4 0 018 0v2M9 17a4 4 0 01-8 0v-2a4 4 0 018 0v2zm0 0v-2a4 4 0 018 0v2m0 0a4 4 0 01-8 0v-2a4 4 0 018 0v2z"/></svg>
+                    </div>
+                    <?php
+                    $sql3 = "SELECT * FROM tblgrocerybooking WHERE Status='HandOverTo'";
+                    $query3 = $dbh->prepare($sql3);
+                    $query3->execute();
+                    $results3 = $query3->fetchAll(PDO::FETCH_OBJ);
+                    $completedBookings = $query3->rowCount();
+                    ?>
+                    <p class="text-3xl font-bold text-gray-800 mb-2"><?php echo htmlentities($completedBookings); ?></p>
+                    <p class="text-gray-600 mb-4 text-center">Completed Requests</p>
+                    <a href="completed-grocery-orders.php" class="bg-gradient-to-r from-green-500 to-green-700 text-white font-bold px-6 py-2 rounded-full shadow hover:from-green-600 hover:to-green-800 transition">View Details</a>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center">
+                    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-red-100 mb-4">
+                        <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-1.414 1.414M6.05 17.95l-1.414 1.414M17.95 17.95l-1.414-1.414M6.05 6.05L4.636 4.636"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+                    </div>
+                    <?php
+                    $sql4 = "SELECT * FROM tblgrocerybooking WHERE  Status='Cancelled'";
+                    $query4 = $dbh->prepare($sql4);
+                    $query4->execute();
+                    $results4 = $query4->fetchAll(PDO::FETCH_OBJ);
+                    $cancelledBookings = $query4->rowCount();
+                    ?>
+                    <p class="text-3xl font-bold text-gray-800 mb-2"><?php echo htmlentities($cancelledBookings); ?></p>
+                    <p class="text-gray-600 mb-4 text-center">Cancelled Requests</p>
+                    <a href="cancelled-grocery-orders.php" class="bg-gradient-to-r from-green-500 to-green-700 text-white font-bold px-6 py-2 rounded-full shadow hover:from-green-600 hover:to-green-800 transition">View Details</a>
+                </div>
+            </div>
+        </main>
+        <?php include_once('includes/footer.php'); ?>
     </div>
-</div>
-<script src="js/jquery.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/animate.js"></script>
-<script src="js/bootstrap-select.js"></script>
-<script src="js/perfect-scrollbar.min.js"></script>
-<script>
-    var ps = new PerfectScrollbar('#sidebar');
-</script>
-<script src="js/custom.js"></script>
 </body>
 </html>
 <?php } ?>
