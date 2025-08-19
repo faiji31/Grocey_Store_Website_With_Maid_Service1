@@ -25,7 +25,7 @@ $query->execute();
 <html lang="en">
    <head>
       
-      <title>Maid Hiring Management System || Manage Maid</title>
+      <title>Grocery Store and Maid Service || Manage Maid</title>
    
    <script src="https://cdn.tailwindcss.com"></script>
       

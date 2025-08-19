@@ -46,38 +46,20 @@ if (strlen($_SESSION['mhmsaid'] == 0)) {
 <html lang="en">
 <head>
     <title>Grocery Order Details</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="css/responsive.css" />
-    <link rel="stylesheet" href="css/colors.css" />
-    <link rel="stylesheet" href="css/bootstrap-select.css" />
-    <link rel="stylesheet" href="css/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="css/custom.css" />
+    <link rel="shortcut icon" href="images/logo/logo_icon.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="inner_page tables_page">
-<div class="full_container">
-    <div class="inner_container">
-        <!-- Sidebar -->
-        <?php include_once('includes/sidebar.php'); ?>
-        <!-- End Sidebar -->
-
-        <div id="content">
-            <!-- Topbar -->
-            <?php include_once('includes/header.php'); ?>
-            <!-- End Topbar -->
-
-            <!-- Dashboard Content -->
-            <div class="midde_cont">
-                <div class="container-fluid">
-                    <div class="row column_title">
-                        <div class="col-md-12">
-                            <div class="page_title">
-                                <h2>View Grocery Order Details</h2>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Order Details Section -->
+<body class="bg-gray-100 min-h-screen">
+<div class="flex min-h-screen">
+    <?php include_once('includes/sidebar.php'); ?>
+    <div class="flex-1 flex flex-col min-h-screen">
+        <?php include_once('includes/header.php'); ?>
+        <main class="flex-1 p-6 md:p-10">
+            <h2 class="text-3xl font-bold text-green-700 mb-8">View Grocery Order Details</h2>
+            <div class="max-w-3xl mx-auto">
+                <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <h3 class="text-xl font-semibold text-green-700 mb-4">Order Details</h3>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="white_shd full margin_bottom_30">
@@ -99,141 +81,108 @@ if (strlen($_SESSION['mhmsaid'] == 0)) {
                                         if ($query->rowCount() > 0) {
                                             foreach ($results as $row) {
                                         ?>
-                                        <table class="table table-bordered">
-                                            <tr>
-                                                <th>Order ID</th>
-                                                <td><?php echo htmlentities($row->ID); ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Customer Name</th>
-                                                <td><?php echo htmlentities($row->UserName); ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Phone Number</th>
-                                                <td><?php echo htmlentities($row->PhoneNumber); ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Delivery Address</th>
-                                                <td><?php echo htmlentities($row->FullArea); ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Order Details</th>
-                                                <td><?php echo htmlentities($row->OrderDetails); ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Delivery Time</th>
-                                                <td><?php echo htmlentities($row->DeliveryTime); ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Status</th>
-                                                <td>
-                                                    <?php
-                                                    $status = $row->Status;
-                                                    if ($status == "Approved") {
-                                                        echo "Order Approved";
-                                                    } elseif ($status == "Cancelled") {
-                                                        echo "Order Cancelled";
-                                                    } else {
-                                                        echo "Pending";
-                                                    }
-                                                    ?>
-                                                </td>
-                                            </tr>
-                                            <!-- <tr> 
-                                                <th>Order Date</th> 
-                                                <td><?php echo htmlentities($row->OrderDate); ?></td>
-                                            </tr> -->
+
+                                        <table class="min-w-full bg-white rounded-lg overflow-hidden shadow text-sm mb-6">
+                                            <tbody>
+                                                <tr>
+                                                    <th class="px-4 py-2 bg-green-50 text-left w-1/3">Order ID</th>
+                                                    <td class="px-4 py-2"><?php echo htmlentities($row->ID); ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="px-4 py-2 bg-green-50 text-left">Customer Name</th>
+                                                    <td class="px-4 py-2"><?php echo htmlentities($row->UserName); ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="px-4 py-2 bg-green-50 text-left">Phone Number</th>
+                                                    <td class="px-4 py-2"><?php echo htmlentities($row->PhoneNumber); ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="px-4 py-2 bg-green-50 text-left">Delivery Address</th>
+                                                    <td class="px-4 py-2"><?php echo htmlentities($row->FullArea); ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="px-4 py-2 bg-green-50 text-left">Order Details</th>
+                                                    <td class="px-4 py-2"><?php echo htmlentities($row->OrderDetails); ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="px-4 py-2 bg-green-50 text-left">Delivery Time</th>
+                                                    <td class="px-4 py-2"><?php echo htmlentities($row->DeliveryTime); ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="px-4 py-2 bg-green-50 text-left">Status</th>
+                                                    <td class="px-4 py-2">
+                                                        <?php
+                                                        $status = $row->Status;
+                                                        if ($status == "Approved") {
+                                                            echo "<span class='inline-block bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium'>Order Approved</span>";
+                                                        } elseif ($status == "Cancelled") {
+                                                            echo "<span class='inline-block bg-red-100 text-red-700 px-2 py-1 rounded text-xs font-medium'>Order Cancelled</span>";
+                                                        } else {
+                                                            echo "<span class='inline-block bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-xs font-medium'>Pending</span>";
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
                                         </table>
                                         <?php } } ?>
 
                                         <!-- Update Status Section -->
                                         <?php if ($status == "") { ?>
-                                        <div class="mt-3">
-                                            <button class="btn btn-primary" data-toggle="modal" data-target="#updateStatusModal">Take Action</button>
-                                        </div>
-                                        <?php } ?>
-
-                                        <!-- Modal for Updating Status -->
-                                        <div class="modal fade" id="updateStatusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Update Status</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form method="post">
-                                                            <div class="form-group">
-                                                                <label for="status">Status</label>
-                                                                <select name="status" id="status" class="form-control" required>
-                                                                    <option value="">Select</option>
-                                                                    <option value="Approved">Approved</option>
-                                                                    <option value="Cancelled">Cancelled</option>
-                                                                </select>
-                                                            </div>
-                                                            <!-- <div class="form-group">
-                                                                <label for="remark">Remark</label>
-                                                                <textarea name="remark" id="remark" class="form-control" rows="4" required></textarea>
-                                                            </div> -->
-                                                            <div class="form-group" id="assigneeSection" style="display: none;">
-                                                                <label for="assignee">Assign to Agent</label>
-                                                                <select name="assignee" id="assignee" class="form-control">
-                                                                    <option value="">Select Agent</option>
-                                                                    <?php
-                                                                    $sqlAgents = "SELECT * FROM tblagent";
-                                                                    $queryAgents = $dbh->prepare($sqlAgents);
-                                                                    $queryAgents->execute();
-                                                                    $agents = $queryAgents->fetchAll(PDO::FETCH_OBJ);
-                                                                    foreach ($agents as $agent) {
-                                                                    ?>
-                                                                   <option value="<?php echo htmlentities($agent->ID); ?>">
-    <?php echo htmlentities($agent->AgentName); ?> (<?php echo htmlentities($agent->AgentEmail); ?>)
-</option>
-
-                                                                    <?php } ?>
-                                                                </select>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                <button type="submit" name="submit" class="btn btn-primary">Update</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
+                                        <div x-data="{ open: false, showAssignee: false }">
+                                            <div class="mt-3">
+                                                <button @click="open = true" class="px-6 py-2 bg-green-700 text-white rounded-lg font-semibold hover:bg-green-800 transition">Take Action</button>
+                                            </div>
+                                            <!-- Modal for Updating Status (Tailwind/Alpine) -->
+                                            <div x-show="open" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40" style="display: none;">
+                                                <div @click.away="open = false" class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+                                                    <h3 class="text-lg font-semibold mb-4">Update Status</h3>
+                                                    <form method="post">
+                                                        <div class="mb-4">
+                                                            <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                                                            <select name="status" id="status" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-green-500" required @change="showAssignee = $event.target.value === 'Approved'">
+                                                                <option value="">Select</option>
+                                                                <option value="Approved">Approved</option>
+                                                                <option value="Cancelled">Cancelled</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="mb-4" x-show="showAssignee">
+                                                            <label for="assignee" class="block text-sm font-medium text-gray-700 mb-1">Assign to Agent</label>
+                                                            <select name="assignee" id="assignee" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-green-500">
+                                                                <option value="">Select Agent</option>
+                                                                <?php
+                                                                $sqlAgents = "SELECT * FROM tblagent";
+                                                                $queryAgents = $dbh->prepare($sqlAgents);
+                                                                $queryAgents->execute();
+                                                                $agents = $queryAgents->fetchAll(PDO::FETCH_OBJ);
+                                                                foreach ($agents as $agent) {
+                                                                ?>
+                                                                <option value="<?php echo htmlentities($agent->ID); ?>">
+                                                                    <?php echo htmlentities($agent->AgentName); ?> (<?php echo htmlentities($agent->AgentEmail); ?>)
+                                                                </option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="flex justify-end gap-2 mt-6">
+                                                            <button type="button" @click="open = false" class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Close</button>
+                                                            <button type="submit" name="submit" class="px-4 py-2 bg-green-700 text-white rounded hover:bg-green-800">Update</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
+                                            <!-- End Modal -->
                                         </div>
-                                        <!-- End Modal -->
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Footer -->
-                <?php include_once('includes/footer.php'); ?>
             </div>
-        </div>
+        </main>
+        <?php include_once('includes/footer.php'); ?>
     </div>
 </div>
-<script src="js/jquery.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/custom.js"></script>
-
-<script>
-    $(document).ready(function () {
-        $('#status').change(function () {
-            if ($(this).val() == 'Approved') {
-                $('#assigneeSection').show();
-                $('#assignee').prop('required', true);
-            } else {
-                $('#assigneeSection').hide();
-                $('#assignee').prop('required', false);
-            }
-        });
-    });
-</script>
 </body>
 </html>

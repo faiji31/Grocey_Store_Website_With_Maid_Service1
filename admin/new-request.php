@@ -41,10 +41,7 @@ if (strlen($_SESSION['mhmsaid'] == 0)) {
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <?php
-                                $sql = "SELECT m.*, c.CategoryName "+
-                                    " FROM tblmaidbooking m "+
-                                    " LEFT JOIN tblcategory c ON m.CatID = c.ID "+
-                                    " WHERE m.Status IS NULL";
+                                $sql = "SELECT m.*, c.CategoryName FROM tblmaidbooking m LEFT JOIN tblcategory c ON m.CatID = c.ID WHERE m.Status IS NULL";
                                 $query = $dbh->prepare($sql);
                                 $query->execute();
                                 $results = $query->fetchAll(PDO::FETCH_OBJ);

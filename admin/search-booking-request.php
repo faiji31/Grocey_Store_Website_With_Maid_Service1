@@ -1,194 +1,109 @@
+
 <?php
 session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
 if (strlen($_SESSION['mhmsaid']==0)) {
   header('location:logout.php');
-  } else{
-
-
-  ?>
+  exit();
+} else {
+?>
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      
-      <title>Maid Hiring Management System || Search Booking Request</title>
-   
-      <link rel="stylesheet" href="css/bootstrap.min.css" />
-      <!-- site css -->
-      <link rel="stylesheet" href="style.css" />
-      <!-- responsive css -->
-      <link rel="stylesheet" href="css/responsive.css" />
-      <!-- color css -->
-      <link rel="stylesheet" href="css/colors.css" />
-      <!-- select bootstrap -->
-      <link rel="stylesheet" href="css/bootstrap-select.css" />
-      <!-- scrollbar css -->
-      <link rel="stylesheet" href="css/perfect-scrollbar.css" />
-      <!-- custom css -->
-      <link rel="stylesheet" href="css/custom.css" />
-      <!-- calendar file css -->
-      <link rel="stylesheet" href="js/semantic.min.css" />
-      <!-- fancy box js -->
-      <link rel="stylesheet" href="css/jquery.fancybox.css" />
-      
-   </head>
-   <body class="inner_page tables_page">
-      <div class="full_container">
-         <div class="inner_container">
-            <!-- Sidebar  -->
-          <?php include_once('includes/sidebar.php');?>
-            <!-- right content -->
-            <div id="content">
-               <!-- topbar -->
-              <?php include_once('includes/header.php');?>
-               <!-- end topbar -->
-               <!-- dashboard inner -->
-               <div class="midde_cont">
-                  <div class="container-fluid">
-                     <div class="row column_title">
-                        <div class="col-md-12">
-                           <div class="page_title">
-                              <h2>Search Booking Request</h2>
-                           </div>
-                        </div>
-                     </div>
-                     <!-- row -->
-                     <div class="row">
-                     
-                      
-                        <div class="col-md-12">
-                           <div class="white_shd full margin_bottom_30">
-                              <div class="full graph_head">
-                                 <div class="heading1 margin_0">
-                                    <h2>Search Booking Request</h2>
-                                 </div>
-                              </div>
-                              
-                              <div class="table_section padding_infor_info">
-               <form id="basic-form" method="post">
-                                <div class="form-group">
-                                   
-                                    <input id="searchdata" type="text" name="searchdata" required="true" class="form-control" placeholder="Enter Booking ID or Name"></div>
-                                
-                              
-                                <button type="submit" class="btn btn-primary" name="search" id="submit">Search</button>
-                            </form>
-                                 <div class="table-responsive-sm">
-                                    <?php
-if(isset($_POST['search']))
-{ 
-
-$sdata=$_POST['searchdata'];
-  ?>
-  <h4 align="center">Result against "<?php echo $sdata;?>" keyword </h4>
-                                    <table class="table table-bordered">
-                                       <thead>
-                                           <tr>
-                                        <th class="text-center"></th>
-                                        <th>Booking ID</th>
-                                        <th class="d-none d-sm-table-cell">Name</th>
-                                        <th class="d-none d-sm-table-cell">Mobile Number</th>
-                                        <th class="d-none d-sm-table-cell">Email</th>
-                                        <th class="d-none d-sm-table-cell">Booking Date</th>
-                                        <th class="d-none d-sm-table-cell">Status</th>
-                                        <th class="d-none d-sm-table-cell">Assign To</th>
-                                        <th class="d-none d-sm-table-cell" style="width: 15%;">Action</th>
-                                       </tr>
-                                       </thead>
-                                       <tbody>
-                                          <?php
-$sql= "SELECT * from tblmaidbooking where tblmaidbooking.BookingID like '$sdata%' || tblmaidbooking.Name like '$sdata%'";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $row)
-{               ?>
-                                         <tr>
-                                        <td class="text-center"><?php echo htmlentities($cnt);?></td>
-                                        <td class="font-w600"><?php  echo htmlentities($row->BookingID);?></td>
-                                        <td class="font-w600"><?php  echo htmlentities($row->Name);?></td>
-                                        <td class="font-w600"><?php  echo htmlentities($row->ContactNumber);?></td>
-                                        <td class="font-w600"><?php  echo htmlentities($row->Email);?></td>
-                                        <td class="font-w600">
-                                            <span class="badge badge-primary"><?php  echo htmlentities($row->BookingDate);?></span>
-                                        </td>
-                                        <?php if($row->Status==""){ ?>
-
-                     <td class="font-w600"><?php echo "Not Updated Yet"; ?></td>
-<?php } else { ?>
-                                        <td class="d-none d-sm-table-cell">
-                                            <span class="badge badge-primary"><?php  echo htmlentities($row->Status);?></span>
-                                        </td>
-<?php } ?> 
-<?php if($row->Status==""){ ?>
-
-                     <td class="font-w600"><?php echo "Not Assign Yet"; ?></td>
-   
-<?php } else { ?>
-                                        <td class="d-none d-sm-table-cell">
-                                            <span class="badge badge-primary"><?php  echo htmlentities($row->AssignTo);?></span>
-                                        </td>
-<?php } ?> 
-                                         <td class="d-none d-sm-table-cell"><a href="view-booking-detail.php?editid=<?php echo htmlentities ($row->ID);?>&&bookingid=<?php echo htmlentities ($row->BookingID);?>"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
-                                    </tr>
-                                          <?php 
-$cnt=$cnt+1;
-} } else { ?>
-  <tr>
-    <td colspan="8"> No record found against this search</td>
-
-  </tr>
-  <?php } }?>
-
-                                         
-                                       </tbody>
-                                    </table>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
+<head>
+   <title>Maid Hiring Management System | Search Booking Request</title>
+   <link rel="shortcut icon" href="images/logo/logo_icon.png" type="image/x-icon">
+   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+   <div class="flex min-h-screen">
+      <!-- Sidebar -->
+      <?php include_once('includes/sidebar.php'); ?>
+      <div class="flex-1 flex flex-col min-h-screen">
+         <!-- Header -->
+         <?php include_once('includes/header.php'); ?>
+         <main class="flex-1 p-6">
+            <div class="max-w-5xl mx-auto">
+               <h2 class="text-3xl font-bold text-green-800 mb-8">Search Booking Request</h2>
+               <div class="bg-white rounded-xl shadow-lg p-8">
+                  <form id="basic-form" method="post" class="flex flex-col md:flex-row items-center gap-4 mb-8">
+                     <input id="searchdata" type="text" name="searchdata" required class="flex-1 px-4 py-2 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none text-gray-700" placeholder="Enter Booking ID or Name">
+                     <button type="submit" name="search" id="submit" class="px-6 py-2 bg-green-700 text-white rounded-lg font-semibold hover:bg-green-800 transition">Search</button>
+                  </form>
+                  <?php
+                  if(isset($_POST['search'])) {
+                     $sdata=trim($_POST['searchdata']);
+                  ?>
+                  <h4 class="text-lg font-semibold text-center text-green-700 mb-4">Result against "<?php echo htmlspecialchars($sdata);?>" keyword</h4>
+                  <div class="overflow-x-auto">
+                     <table class="min-w-full bg-white rounded-lg overflow-hidden shadow text-sm">
+                        <thead class="bg-green-700 text-white">
+                           <tr>
+                              <th class="px-4 py-3 text-center">#</th>
+                              <th class="px-4 py-3">Booking ID</th>
+                              <th class="px-4 py-3">Name</th>
+                              <th class="px-4 py-3">Mobile Number</th>
+                              <th class="px-4 py-3">Email</th>
+                              <th class="px-4 py-3">Booking Date</th>
+                              <th class="px-4 py-3">Status</th>
+                              <th class="px-4 py-3">Assign To</th>
+                              <th class="px-4 py-3">Action</th>
+                           </tr>
+                        </thead>
+                        <tbody class="divide-y divide-green-100">
+                           <?php
+                           $sql= "SELECT * from tblmaidbooking where tblmaidbooking.BookingID like :sdata or tblmaidbooking.Name like :sdata";
+                           $query = $dbh -> prepare($sql);
+                           $likeData = $sdata . '%';
+                           $query->bindParam(':sdata', $likeData, PDO::PARAM_STR);
+                           $query->execute();
+                           $results=$query->fetchAll(PDO::FETCH_OBJ);
+                           $cnt=1;
+                           if($query->rowCount() > 0) {
+                              foreach($results as $row) {
+                           ?>
+                           <tr class="hover:bg-green-50">
+                              <td class="px-4 py-2 text-center"><?php echo htmlentities($cnt);?></td>
+                              <td class="px-4 py-2 font-semibold text-green-800"><?php echo htmlentities($row->BookingID);?></td>
+                              <td class="px-4 py-2"><?php echo htmlentities($row->Name);?></td>
+                              <td class="px-4 py-2"><?php echo htmlentities($row->ContactNumber);?></td>
+                              <td class="px-4 py-2"><?php echo htmlentities($row->Email);?></td>
+                              <td class="px-4 py-2">
+                                 <span class="inline-block bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium"><?php echo htmlentities($row->BookingDate);?></span>
+                              </td>
+                              <td class="px-4 py-2">
+                                 <?php if($row->Status==""){ ?>
+                                    <span class="text-gray-400 italic">Not Updated Yet</span>
+                                 <?php } else { ?>
+                                    <span class="inline-block bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-medium"><?php echo htmlentities($row->Status);?></span>
+                                 <?php } ?>
+                              </td>
+                              <td class="px-4 py-2">
+                                 <?php if($row->Status==""){ ?>
+                                    <span class="text-gray-400 italic">Not Assign Yet</span>
+                                 <?php } else { ?>
+                                    <span class="inline-block bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs font-medium"><?php echo htmlentities($row->AssignTo);?></span>
+                                 <?php } ?>
+                              </td>
+                              <td class="px-4 py-2 text-center">
+                                 <a href="view-booking-detail.php?editid=<?php echo htmlentities($row->ID);?>&&bookingid=<?php echo htmlentities($row->BookingID);?>" class="inline-block px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 transition" title="View"><svg class="w-4 h-4 inline" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></a>
+                              </td>
+                           </tr>
+                           <?php $cnt++; } } else { ?>
+                           <tr>
+                              <td colspan="9" class="text-center text-red-500 py-4">No record found against this search</td>
+                           </tr>
+                           <?php } } ?>
+                        </tbody>
+                     </table>
                   </div>
-                  <!-- footer -->
-                 <?php include_once('includes/footer.php');?>
                </div>
-               <!-- end dashboard inner -->
             </div>
-         </div>
-         <!-- model popup -->
-       
+         </main>
+         <!-- Footer -->
+         <?php include_once('includes/footer.php'); ?>
       </div>
-      <!-- jQuery -->
-      <script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.min.js"></script>
-      <!-- wow animation -->
-      <script src="js/animate.js"></script>
-      <!-- select country -->
-      <script src="js/bootstrap-select.js"></script>
-      <!-- owl carousel -->
-      <script src="js/owl.carousel.js"></script> 
-      <!-- chart js -->
-      <script src="js/Chart.min.js"></script>
-      <script src="js/Chart.bundle.min.js"></script>
-      <script src="js/utils.js"></script>
-      <script src="js/analyser.js"></script>
-      <!-- nice scrollbar -->
-      <script src="js/perfect-scrollbar.min.js"></script>
-      <script>
-         var ps = new PerfectScrollbar('#sidebar');
-      </script>
-      <!-- fancy box js -->
-      <script src="js/jquery-3.3.1.min.js"></script>
-      <script src="js/jquery.fancybox.min.js"></script>
-      <!-- custom js -->
-      <script src="js/custom.js"></script>
-      <!-- calendar file css -->    
-      <script src="js/semantic.min.js"></script>
-   </body>
-</html><?php } ?>
+   </div>
+</body>
+</html>
+<?php } ?>
